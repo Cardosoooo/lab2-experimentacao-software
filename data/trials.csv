@@ -1,0 +1,1 @@
+trial_id,sujeito,kata_id,tratamento,ordem,inicio_iso,fim_iso,tempo_segundos,censurado,tempo_primeiro_verde_s,testes_total,testes_passando,taxa_sucesso,n_prompts,commit_final,collected_at

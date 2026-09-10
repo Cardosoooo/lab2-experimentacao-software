@@ -76,6 +76,26 @@ estão em `scripts/requirements.txt`.
 - **Datas:** toda análise usa o campo `collected_at` gravado na coleta, nunca a data
   em que o script roda.
 
+## Como registrar um trial
+
+Sempre a partir da raiz do repositório.
+
+```
+javac -d out ferramentas/Cronometro.java
+java -cp out Cronometro iniciar gabriel kata01 COM_IA 1
+java -cp out Cronometro status gabriel-kata01-COM_IA
+java -cp out Cronometro verde gabriel-kata01-COM_IA
+java -cp out Cronometro finalizar gabriel-kata01-COM_IA 12 12 7 abc1234
+```
+
+O comando `verde` é chamado na primeira vez que a suíte reporta algum teste passando,
+e alimenta a RQ4. O `finalizar` recebe o total de testes, quantos passaram, o número
+de prompts usados e o hash do commit do código final.
+
+O trial é registrado como **censurado em 2100 segundos** quando estoura o time-box ou
+quando termina sem todos os testes passando. Nesses casos a linha continua no CSV,
+como o enunciado exige, e o tempo não é usado como tempo de resolução.
+
 ## Status
 
 | Sprint | Entregável | Situação |
