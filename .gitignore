@@ -1,0 +1,31 @@
+# Artefatos de compilacao Java
+*.class
+out/
+bin/
+build/
+
+# Ferramentas externas baixadas pelo script de preparacao (CK, PMD)
+tools/
+
+# Ambiente Python da analise
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Logs avulsos
+*.log
+
+# Credenciais: o token do GitHub e lido da variavel de ambiente GITHUB_TOKEN
+.env
+*.token
