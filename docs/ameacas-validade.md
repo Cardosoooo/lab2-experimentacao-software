@@ -35,6 +35,7 @@ Passo 1 do enunciado e registra a parcela de contribuição própria do grupo.
 | A taxa de sucesso depende da suíte escrita pelo grupo | Uma suíte fraca infla a taxa de sucesso dos dois tratamentos. Cada suíte cobre caminho feliz, casos de borda e entradas inválidas, e é revisada pelo integrante que não escreveu a kata |
 | Complexidade ciclomática é proxy | O valor agregado por classe do CK mede caminhos de decisão, não clareza do código |
 | Duplicação depende de configuração | O resultado do CPD varia conforme o tamanho mínimo de trecho considerado. O valor usado é fixado no script de coleta e registrado no relatório |
+| Calibração das katas por indicador estrutural | A dificuldade das katas não foi cronometrada antes do experimento. Cronometrar exigiria que um integrante resolvesse a kata do zero, antecipando o trabalho que os trials medem e contaminando o sujeito. A equivalência entre katas foi verificada por número de regras do enunciado, quantidade de testes, linhas de código, métodos e pontos de decisão da solução de referência, com os valores registrados em `katas/README.md`. O bloqueio por kata no desenho garante que a diferença residual de porte entre elas incida igualmente sobre os dois tratamentos |
 
 ## 4. Ameaças à validade de conclusão
 
