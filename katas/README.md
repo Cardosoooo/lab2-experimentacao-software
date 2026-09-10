@@ -8,8 +8,8 @@ testes de aceitação sem JUnit e uma solução de referência.
 |------|------|-------|
 | `kata01` | Fechamento de caixa | Gabriel |
 | `kata02` | Cobrança de estacionamento | Gabriel |
-| `kata03` | a definir | Guilherme |
-| `kata04` | a definir | Guilherme |
+| `kata03` | Compra fracionada de ações | Guilherme |
+| `kata04` | Conta de energia elétrica | Guilherme |
 
 ## Regra de uso durante o experimento
 
@@ -55,19 +55,34 @@ resolvesse a kata do zero antes do experimento, o que anteciparia justamente o
 trabalho que a Sprint 2 vai medir. A limitação está registrada em
 [`docs/ameacas-validade.md`](../docs/ameacas-validade.md).
 
-| Indicador | `kata01` | `kata02` |
-|-----------|---------|---------|
-| Regras numeradas no enunciado | 9 | 8 |
-| Testes de aceitação | 12 | 14 |
-| Linhas de código da referência | 99 | 61 |
-| Métodos da referência | 4 | 5 |
-| Pontos de decisão da referência | 23 | 11 |
+| Indicador | `kata01` | `kata02` | `kata03` | `kata04` |
+|-----------|---------|---------|---------|---------|
+| Regras numeradas no enunciado | 9 | 8 | 10 | 7 |
+| Testes de aceitação | 12 | 14 | 15 | 16 |
+| Linhas de código da referência | 99 | 61 | 88 | 62 |
+| Métodos da referência | 4 | 5 | 4 | 4 |
+| Pontos de decisão da referência | 23 | 11 | 19 | 14 |
 
-As duas katas exigem tratamento de entrada inválida, cabem em um único arquivo e não
-pedem biblioteca externa nem estrutura de dados elaborada. A `kata01` é a mais pesada
-das duas: concentra validação, deduplicação e agregação, e isso aparece nos pontos de
-decisão. A `kata02` troca volume de validação por aritmética de tempo e ordem de
-aplicação de regras.
+**Critério de contagem de pontos de decisão.** No arquivo da solução de
+referência, com comentários desconsiderados: cada `if`, `for`, `while`, `switch`,
+`case`, `default` e `catch` conta 1; cada `&&` e `||` conta 1; um ternário conta 2,
+porque tem dois ramos; `else` não conta, porque o ramo faz parte do `if` já
+contado. Aplicada sobre a `kata01` e a `kata02` este critério reproduz
+exatamente os valores 23 e 11 já publicados.
+
+As duas primeiras katas exigem tratamento de entrada inválida, cabem em um único
+arquivo e não pedem biblioteca externa nem estrutura de dados elaborada. A `kata01`
+é a mais pesada das duas: concentra validação, deduplicação e agregação, e isso
+aparece nos pontos de decisão. A `kata02` troca volume de validação por aritmética
+de tempo e ordem de aplicação de regras.
+
+As katas do Guilherme seguem o mesmo perfil. A `kata03` é a mais próxima da
+`kata01`: validação de linhas, cancelamento por chave e três faixas de corretagem,
+com porte e complexidade parecidos (88 LOC, 4 métodos, 19 pontos de decisão). A
+`kata04` é a mais próxima da `kata02`: validação de entrada, faixas progressivas de
+preço e um desconto condicional, com porte quase idêntico (62 LOC, 4 métodos, 14
+pontos de decisão). A `kata04` tem mais testes de aceitação (16) porque cada
+bandeira tarifária cobre uma combinação diferente de sobretaxa.
 
 Essa diferença de porte entre as katas não compromete a comparação, porque o desenho
 bloqueia por kata: cada uma é resolvida uma vez com IA e uma vez sem IA. A dificuldade
