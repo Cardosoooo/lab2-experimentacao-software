@@ -90,3 +90,26 @@ da kata incide igualmente nos dois tratamentos.
 
 Se durante a Sprint 2 alguma kata censurar os dois trials, isso é registrado como
 evidência de calibração insuficiente e entra na discussão do relatório final.
+
+## Linha de base medida pelas ferramentas oficiais
+
+A tabela acima é contagem manual sobre o arquivo. Como controle, a solução de
+referência das quatro katas passou pelo mesmo pipeline CK e PMD que vai medir os
+trials. Isso dá um piso de comparação para o código que sair da Sprint 2. A saída
+bruta está em `data/metricas/kataNN-ref/`.
+
+| Métrica (CK e PMD) | `kata01` | `kata02` | `kata03` | `kata04` |
+|--------------------|---------|---------|---------|---------|
+| Linhas de código | 93 | 54 | 87 | 60 |
+| Métodos | 5 | 5 | 5 | 4 |
+| Complexidade ciclomática total | 20 | 6 | 17 | 15 |
+| Complexidade média por método | 4 | 1.2 | 3.4 | 3.75 |
+| Linhas duplicadas | 0 | 0 | 0 | 0 |
+| Tamanho mínimo de trecho no CPD | 50 | 50 | 50 | 50 |
+
+Os valores de linhas de código diferem um pouco da contagem manual porque o CK aplica
+o próprio critério de linha útil. As duas medidas convivem: a manual descreve o
+enunciado, a do CK é a que entra na análise da RQ3 e da RQ5.
+
+Duplicação zero nas quatro é o esperado. Cada referência é um arquivo único e curto,
+sem trecho repetido acima do limite de 50 tokens do detector.
