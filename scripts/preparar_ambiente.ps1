@@ -41,7 +41,17 @@ function Test-Jdk {
         throw 'java ou javac nao encontrado no PATH. Instale um JDK 17 ou superior (Temurin 25 recomendado).'
     }
 
-    $saida = (& java -version 2>&1 | Select-Object -First 1)
+    # O java escreve o banner de versao em stderr. No PowerShell 5.1, com
+    # ErrorActionPreference = 'Stop', o redirecionamento 2>&1 de um executavel nativo
+    # vira NativeCommandError e aborta o script mesmo com o java funcionando. Por isso
+    # a preferencia e relaxada so nesta chamada.
+    $anterior = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $saida = (& java -version 2>&1 | Select-Object -First 1)
+    } finally {
+        $ErrorActionPreference = $anterior
+    }
     $versao = [string]$saida
 
     $match = [regex]::Match($versao, 'version "(\d+)')

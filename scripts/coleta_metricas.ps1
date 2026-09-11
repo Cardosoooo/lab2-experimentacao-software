@@ -222,6 +222,13 @@ if ($locTotal -gt 0) {
 
 $collectedAt = (Get-Date).ToString('yyyy-MM-ddTHH:mm:sszzz')
 $consolidado = Join-Path $metricasBase 'metricas.csv'
+# Os campos decimais precisam ser formatados em cultura invariante. Com a cultura do
+# sistema em portugues, o separador vira virgula, o valor 1.2 e escrito como "1,2" e
+# quebra a linha do CSV em duas colunas, deslocando todas as metricas seguintes.
+$invariante = [System.Globalization.CultureInfo]::InvariantCulture
+$ccMediaTexto = ([double]$ccMedia).ToString($invariante)
+$pctDuplicacaoTexto = ([double]$pctDuplicacao).ToString($invariante)
+
 $linha = @(
     $Trial,
     $nArquivos,
@@ -229,10 +236,10 @@ $linha = @(
     $locTotal,
     $nMetodos,
     $ccTotal,
-    $ccMedia,
+    $ccMediaTexto,
     $duplicacoes,
     $linhasDuplicadas,
-    $pctDuplicacao,
+    $pctDuplicacaoTexto,
     $MinTokens,
     $collectedAt
 ) -join ','
