@@ -56,7 +56,9 @@ try {
         throw "gh project item-list $Projeto falhou (exit $($p.ExitCode)). Verifique ''gh auth status'' e GITHUB_TOKEN. Detalhe: $erro"
     }
 
-    $json = Get-Content -Path $outTmp -Raw
+    # -Encoding UTF8 e obrigatorio: o gh grava o JSON em UTF-8 e o Get-Content do
+    # PowerShell 5.1 assume a codificacao ANSI do sistema, corrompendo os acentos.
+    $json = Get-Content -Path $outTmp -Raw -Encoding UTF8
     $null = $json | ConvertFrom-Json   # valida o JSON antes de gravar
 
     [IO.File]::WriteAllText($Saida, $json, (New-Object System.Text.UTF8Encoding($false)))
