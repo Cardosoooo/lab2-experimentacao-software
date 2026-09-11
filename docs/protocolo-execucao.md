@@ -17,6 +17,9 @@ registra o instante real de cada coleta.
 | Componente | Versão fixada | Obtido por |
 |------------|---------------|------------|
 | JDK | Temurin 25 (exige JDK 17+) | instalação do sujeito, `scripts/preparar_ambiente.ps1` valida |
+| IDE | Visual Studio Code 1.110.0 | menu `Help > About`, ou `code --version` |
+| Suporte a Java na IDE | Extension Pack for Java (`vscjava.vscode-java-pack`, `redhat.java`) | `code --list-extensions` |
+| Extensões de IA na IDE | todas desligadas nos dois tratamentos | `code --list-extensions`, conferido antes de cada trial |
 | CK | 0.7.0 | `scripts/preparar_ambiente.ps1` (Maven Central) |
 | PMD (CPD) | 7.27.0 | `scripts/preparar_ambiente.ps1` (GitHub Releases) |
 | Assistente de IA | Claude, versão gratuita | conta do sujeito (somente tratamento `COM_IA`) |
@@ -143,7 +146,8 @@ passa em toda a suíte (`java -cp out ExecutorTestes <kata> --ref` retorna exit 
 
 | Regra | `COM_IA` | `SEM_IA` |
 |-------|----------|----------|
-| Assistente de IA generativo | disponível sem restrição durante todo o trial | proibido |
+| Assistente de IA generativo | Claude gratuito, por conversa em janela separada da IDE, sem limite de perguntas | proibido |
+| Extensões de IA dentro da IDE | desligadas | desligadas |
 | Internet | liberada | liberada para documentação oficial, proibida para qualquer assistente generativo ou código pré-pronto |
 | Autocompletar da IDE | permitido | permitido (sem componente generativo) |
 | Consulta a outros sujeitos | proibida | proibida |
@@ -152,6 +156,12 @@ passa em toda a suíte (`java -cp out ExecutorTestes <kata> --ref` retorna exit 
 O único fator que difere entre os braços é o acesso ao assistente; ferramentas de
 edição e suítes de teste são idênticas, conforme `desenho-experimento.md`, seções 5 e
 6.
+
+As extensões de IA da IDE ficam desligadas **inclusive no braço `COM_IA`**. Elas leem
+e editam os arquivos do projeto diretamente, o que é um tratamento mais forte do que o
+declarado no desenho, que é consulta por conversa. Deixá-las ligadas mudaria o que o
+experimento está medindo. A conferência é feita no início de cada trial, junto com o
+registro de versões da seção 1.
 
 ## 5. Coleta de métricas estáticas (pós-trial)
 

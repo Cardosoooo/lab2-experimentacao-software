@@ -33,7 +33,11 @@ Crossover within-subject contrabalanceado, com time-box fixo de 35 minutos por t
 Cada kata aparece uma vez em cada tratamento e cada posição da sequência aparece uma
 vez em cada tratamento. Total de 8 trials, 4 por tratamento.
 
-**Assistente fixado para todos os trials do tratamento com IA:** Claude, versão gratuita.
+**Assistente fixado para todos os trials do tratamento com IA:** Claude, versão
+gratuita, usado por conversa em janela separada da IDE.
+
+**IDE fixada para os dois sujeitos:** Visual Studio Code 1.110.0 com o Extension Pack
+for Java. Extensões de IA integradas à IDE ficam desligadas nos dois tratamentos.
 
 ## Estrutura do repositório
 

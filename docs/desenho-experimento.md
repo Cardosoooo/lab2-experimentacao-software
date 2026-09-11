@@ -70,7 +70,9 @@ IA **altera** a estrutura, sem direção esperada.
 |----------|--------------|
 | Linguagem | Java |
 | JDK | Temurin 25, o mesmo em todos os trials |
-| Assistente de IA | Claude, versão gratuita, em todos os trials do tratamento com IA |
+| IDE | Visual Studio Code 1.110.0, com o Extension Pack for Java, igual para os dois sujeitos |
+| Extensões de IA na IDE | desligadas nos dois tratamentos, inclusive no `COM_IA` |
+| Assistente de IA | Claude, versão gratuita, por conversa, em todos os trials do tratamento com IA |
 | Time-box | 35 minutos, ou 2100 segundos, por trial |
 | Suíte de testes | fixa por kata, idêntica nos dois tratamentos |
 | Ferramentas de métrica | CK e PMD, mesma versão para todos os trials |
@@ -94,7 +96,7 @@ permite.
 
 | Tratamento | Descrição |
 |------------|-----------|
-| `COM_IA` | O sujeito resolve a kata com o assistente disponível durante todo o trial, sem restrição de uso |
+| `COM_IA` | O sujeito resolve a kata com o assistente disponível durante todo o trial, sem restrição de quantidade de perguntas. O uso é por **conversa**, em janela separada da IDE: o sujeito pergunta e traz a resposta para o editor. Extensões de IA integradas à IDE ficam desligadas, porque editam o código diretamente e configurariam um tratamento diferente do declarado |
 | `SEM_IA` | O sujeito resolve a kata sem qualquer assistente generativo, usando apenas IDE, documentação oficial da linguagem e conhecimento próprio |
 
 O autocompletar padrão da IDE, sem componente generativo, é permitido nos dois
@@ -208,9 +210,14 @@ enunciado para essa linguagem.
 | Instrumento | Issue | Papel |
 |-------------|-------|-------|
 | `ferramentas/Cronometro.java` | #5 | marca início e fim do trial, aplica a censura e grava em `data/trials.csv` |
-| `ferramentas/ExecutorTestes.java` | Guilherme | roda a suíte de aceitação e conta testes passando e falhando |
-| `scripts/coleta_metricas.ps1` | Guilherme | executa CK e PMD sobre o código final e normaliza a saída |
+| `ferramentas/ExecutorTestes.java` | #8 | roda a suíte de aceitação e conta testes passando e falhando |
+| `scripts/coleta_metricas.ps1` | #9 | executa CK e PMD sobre o código final e normaliza a saída |
+| `scripts/preparar_ambiente.ps1` | #10 | valida o JDK e baixa CK e PMD nas versões fixadas |
+| `scripts/snapshot_projects.ps1` | #11 | exporta o estado do quadro para `data/snapshots/` |
 | `analise/` | Sprint 3 | Wilcoxon, estatística descritiva e dashboard |
+
+O protocolo de execução de cada trial, com o roteiro passo a passo e o registro das
+versões do ambiente, está em [`protocolo-execucao.md`](protocolo-execucao.md).
 
 Todo registro de tempo grava o campo `collected_at` no momento da coleta. A análise
 usa esse campo e nunca a data em que o script de análise roda, para que o resultado
