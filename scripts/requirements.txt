@@ -1,0 +1,10 @@
+# Dependencias da analise estatistica e do dashboard (Sprint 3).
+# Instalar com: pip install -r scripts/requirements.txt
+#
+# O codigo Java do experimento nao usa nenhuma biblioteca de terceiros.
+# Estas dependencias existem porque o enunciado prescreve Pandas e Matplotlib
+# para o dashboard, e o teste de Wilcoxon vem do SciPy.
+
+pandas>=2.0
+matplotlib>=3.7
+scipy>=1.11
