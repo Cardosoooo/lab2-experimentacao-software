@@ -25,13 +25,14 @@ O detalhamento de hipóteses, variáveis, métricas e ameaças à validade está
 
 Crossover within-subject contrabalanceado, com time-box fixo de 35 minutos por trial.
 
-| Sujeito | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
-|---------|---------|---------|---------|---------|
-| Gabriel | kata01 **com IA** | kata02 sem IA | kata03 **com IA** | kata04 sem IA |
-| Guilherme | kata01 sem IA | kata02 **com IA** | kata03 sem IA | kata04 **com IA** |
+| Sujeito | kata01 | kata02 | kata03 | kata04 |
+|---------|--------|--------|--------|--------|
+| Guilherme | **com IA** | **com IA** | sem IA | sem IA |
+| Gabriel | sem IA | sem IA | **com IA** | **com IA** |
 
-Cada kata aparece uma vez em cada tratamento e cada posição da sequência aparece uma
-vez em cada tratamento. Total de 8 trials, 4 por tratamento.
+Cada kata aparece uma vez em cada tratamento e cada sujeito passa duas vezes por cada
+tratamento. Total de 8 trials, 4 por tratamento. Os desvios de protocolo observados na
+execução estão em [`docs/desvios-sprint2.md`](docs/desvios-sprint2.md).
 
 **Assistente fixado para todos os trials do tratamento com IA:** Claude, versão
 gratuita, usado por conversa em janela separada da IDE.

@@ -1,1 +1,5 @@
 trial_id,sujeito,kata_id,tratamento,ordem,inicio_iso,fim_iso,tempo_segundos,censurado,tempo_primeiro_verde_s,testes_total,testes_passando,taxa_sucesso,n_prompts,commit_final,collected_at
+guilherme-kata01-COM_IA,guilherme,kata01,COM_IA,1,,,90,false,,12,12,100.00,1,a9649f5,2026-09-17T10:14:33-03:00
+guilherme-kata02-COM_IA,guilherme,kata02,COM_IA,2,,,192,false,,14,14,100.00,2,1129ccb,2026-09-17T10:23:20-03:00
+guilherme-kata03-SEM_IA,guilherme,kata03,SEM_IA,3,,,2100,true,,15,,,0,e85fda6,2026-09-17T11:27:32-03:00
+guilherme-kata04-SEM_IA,guilherme,kata04,SEM_IA,4,,,1205,false,,16,16,100.00,0,76860aa,2026-09-17T11:59:47-03:00

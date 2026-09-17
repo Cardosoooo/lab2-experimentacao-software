@@ -123,10 +123,16 @@ o efeito medido.
 Crossover **within-subject** com dois tratamentos, **contrabalanceado** e replicado
 em dois sujeitos, com bloqueio por kata.
 
-| Sujeito | Trial 1 | Trial 2 | Trial 3 | Trial 4 |
-|---------|---------|---------|---------|---------|
-| Gabriel | kata01 `COM_IA` | kata02 `SEM_IA` | kata03 `COM_IA` | kata04 `SEM_IA` |
-| Guilherme | kata01 `SEM_IA` | kata02 `COM_IA` | kata03 `SEM_IA` | kata04 `COM_IA` |
+Atribuição efetivamente executada na Sprint 2:
+
+| Sujeito | kata01 | kata02 | kata03 | kata04 |
+|---------|--------|--------|--------|--------|
+| Guilherme | `COM_IA` | `COM_IA` | `SEM_IA` | `SEM_IA` |
+| Gabriel | `SEM_IA` | `SEM_IA` | `COM_IA` | `COM_IA` |
+
+O desenho previa alternar o tratamento a cada trial dentro do sujeito. A execução
+ficou em blocos, com os dois trials de um tratamento seguidos. O desvio e o efeito
+sobre a análise estão registrados em [`desvios-sprint2.md`](desvios-sprint2.md).
 
 Propriedades do arranjo:
 
@@ -134,8 +140,10 @@ Propriedades do arranjo:
   não fica confundida com o tratamento.
 - Cada sujeito passa duas vezes por cada tratamento, então habilidade individual não
   fica confundida com o tratamento.
-- Cada posição da sequência aparece uma vez em cada tratamento, então o efeito de
-  aprendizado e de fadiga ao longo da sessão fica distribuído entre os dois braços.
+- Os dois sujeitos usam blocos invertidos, então o efeito de aprendizado ao longo da
+  sessão se compensa entre eles no pareamento por kata, que é o pareamento primário.
+  Dentro de um mesmo sujeito, porém, esse efeito fica parcialmente confundido com o
+  tratamento, o que é uma perda em relação ao desenho alternado previsto.
 - Cada autor de kata resolve uma kata própria com IA e outra sem IA, então a vantagem
   de conhecer o próprio enunciado incide igualmente sobre os dois tratamentos.
 
