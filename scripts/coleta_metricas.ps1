@@ -173,25 +173,26 @@ function Indice-Coluna {
     throw "Coluna '$Nome' nao encontrada no cabecalho: $Cabecalho"
 }
 
+# A leitura usa Import-Csv, e nao Split(','), porque o CK escreve a assinatura do
+# metodo entre aspas e ela contem virgulas quando ha mais de um parametro. Exemplo:
+# "cobrar/3[java.lang.String,java.lang.String,boolean]". Partir a linha por virgula
+# desloca as colunas e faz a complexidade ser lida do campo errado.
+
 # class.csv -> loc_total e numero de classes
-$classLinhas = Get-Content -Path $classCsv | Where-Object { $_ }
-$idxLocClass = Indice-Coluna $classLinhas[0] 'loc'
+$classLinhas = @(Import-Csv -Path $classCsv)
 $locTotal = 0
 $nClasses = 0
-for ($i = 1; $i -lt $classLinhas.Count; $i++) {
-    $campos = $classLinhas[$i].Split(',')
-    $locTotal += [int]$campos[$idxLocClass]
+foreach ($linha in $classLinhas) {
+    $locTotal += [int]$linha.loc
     $nClasses++
 }
 
 # method.csv -> complexidade ciclomatica por metodo (coluna wmc)
-$methodLinhas = Get-Content -Path $methodCsv | Where-Object { $_ }
-$idxWmc = Indice-Coluna $methodLinhas[0] 'wmc'
+$methodLinhas = @(Import-Csv -Path $methodCsv)
 $ccTotal = 0L
 $nMetodos = 0
-for ($i = 1; $i -lt $methodLinhas.Count; $i++) {
-    $campos = $methodLinhas[$i].Split(',')
-    $ccTotal += [long]$campos[$idxWmc]
+foreach ($linha in $methodLinhas) {
+    $ccTotal += [long]$linha.wmc
     $nMetodos++
 }
 if ($nMetodos -gt 0) {

@@ -62,7 +62,27 @@ resolver essas duas katas no tratamento `SEM_IA` declara não tê-las consultado
 isso depende de auto-relato, fica registrado como ameaça à validade interna, na mesma
 categoria de difusão de tratamento já prevista em `ameacas-validade.md`.
 
-## 4. A ordem dos tratamentos ficou em blocos, não alternada
+## 4. Defeito na leitura da saída do CK, corrigido e recoletado
+
+**O que aconteceu.** O `scripts/coleta_metricas.ps1` lia o `method.csv` do CK partindo
+cada linha por vírgula. O CK escreve a assinatura do método entre aspas, e ela contém
+vírgulas quando há mais de um parâmetro, como em
+`"cobrar/3[java.lang.String,java.lang.String,boolean]"`. Nesses casos as colunas se
+deslocavam e a complexidade era lida do campo errado.
+
+**Como foi descoberto.** O trial `gabriel-kata02-SEM_IA` saiu com complexidade total
+zero num código que passa em 13 dos 14 testes, o que é impossível.
+
+**Correção.** A leitura passou a usar `Import-Csv`, que respeita campos entre aspas.
+Todas as métricas já coletadas foram recalculadas, das quatro referências e dos seis
+trials existentes na data da correção.
+
+**Valores afetados.** Só arquivos com método de dois ou mais parâmetros. A linha de
+base da `kata02`, por exemplo, passou de complexidade média 1,2 para 3,2. Os valores
+de linhas de código e de duplicação não mudaram, porque vinham de campos anteriores ao
+deslocamento.
+
+## 5. A ordem dos tratamentos ficou em blocos, não alternada
 
 **O que estava previsto.** O desenho original alternava tratamento a cada trial dentro
 do sujeito.

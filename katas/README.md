@@ -102,8 +102,8 @@ bruta está em `data/metricas/kataNN-ref/`.
 |--------------------|---------|---------|---------|---------|
 | Linhas de código | 93 | 54 | 87 | 60 |
 | Métodos | 5 | 5 | 5 | 4 |
-| Complexidade ciclomática total | 20 | 6 | 17 | 15 |
-| Complexidade média por método | 4 | 1.2 | 3.4 | 3.75 |
+| Complexidade ciclomática total | 21 | 16 | 23 | 16 |
+| Complexidade média por método | 4.2 | 3.2 | 4.6 | 4 |
 | Linhas duplicadas | 0 | 0 | 0 | 0 |
 | Tamanho mínimo de trecho no CPD | 50 | 50 | 50 | 50 |
 
