@@ -1,65 +1,44 @@
-## Kata 01 - Com IA
-Tempo: 1:30
-Prompts: 1
-Taxa de sucesso: 100%
-Proporção de sucesso: 12/12
-Complexidade ciclomática média: 6,25
-kloc: 0,14
+# Anotações de execução dos trials
 
-## Kata 01 - Sem IA
-Tempo: 
-Taxa de sucesso final: 
-Proporção de sucesso final: 
-Complexidade ciclomática média: 
-Kloc: 
+Resumo legível dos oito trials da Sprint 2. A fonte de verdade para a análise é
+[`data/trials.csv`](../data/trials.csv), junto com as métricas em `data/metricas/`.
+Esta página existe para leitura rápida e é derivada daqueles arquivos.
 
-## Kata 02 - Com IA
-Tempo: 3:12
-Prompts: 2
-Taxa de sucesso inicial: 85%
-Proporção de sucesso inicial: 12/14
-Taxa de sucesso final: 100%
-Proporção de sucesso final: 14/14
-Complexidade ciclomática média: 3,25
-Kloc: 0,088
+Os campos marcados como não medidos estão explicados em
+[`docs/desvios-sprint2.md`](../docs/desvios-sprint2.md).
 
-## Kata 02 - Sem IA
-Tempo: 
-Taxa de sucesso: 
-Proporção de sucesso: 
-Complexidade ciclomática média: 
-Kloc: 
+| Trial | Tempo | Censurado | 1º verde | Testes | Taxa | Prompts |
+|-------|-------|-----------|----------|--------|------|---------|
+| kata01 com IA, Guilherme | 90 s | não | não medido | 12/12 | 100% | 1 |
+| kata01 sem IA, Gabriel | 1894 s | não | 1423 s | 12/12 | 100% | 0 |
+| kata02 com IA, Guilherme | 192 s | não | não medido | 14/14 | 100% | 2 |
+| kata02 sem IA, Gabriel | 2100 s | **sim** | 1769 s | 13/14 | 92,86% | 0 |
+| kata03 com IA, Gabriel | 163 s | não | 150 s | 15/15 | 100% | 1 |
+| kata03 sem IA, Guilherme | 2100 s | **sim** | não medido | não medido | não medido | 0 |
+| kata04 com IA, Gabriel | 57 s | não | 54 s | 16/16 | 100% | 1 |
+| kata04 sem IA, Guilherme | 1205 s | não | não medido | 16/16 | 100% | 0 |
 
-## Kata 03 - Com IA
-Tempo: 
-Prompts: 
-Taxa de sucesso inicial: 
-Proporção de sucesso inicial: 
-Taxa de sucesso final: 
-Proporção de sucesso final: 
-Complexidade ciclomática média: 
-Kloc: 
+## Métricas estáticas do código final
 
-## Kata 03 - Sem IA
-Tempo: 35+
-Taxa de sucesso: 100%
-Proporção de sucesso: 15/15
-Complexidade ciclomática média: 3,87
-Kloc: 0,15
+| Trial | LOC | Métodos | CC total | CC média | Duplicação |
+|-------|-----|---------|----------|----------|------------|
+| kata01 com IA, Guilherme | 122 | 4 | 25 | 6,25 | 0% |
+| kata01 sem IA, Gabriel | 136 | 3 | 33 | 11 | 0% |
+| kata02 com IA, Guilherme | 63 | 4 | 11 | 2,75 | 0% |
+| kata02 sem IA, Gabriel | 52 | 1 | 19 | 19 | 0% |
+| kata03 com IA, Gabriel | 123 | 8 | 31 | 3,875 | 0% |
+| kata03 sem IA, Guilherme | 131 | 9 | 33 | 3,667 | 0% |
+| kata04 com IA, Gabriel | 66 | 5 | 17 | 3,4 | 0% |
+| kata04 sem IA, Guilherme | 50 | 3 | 10 | 3,333 | 0% |
 
-## Kata 04 - Com IA
-Tempo: 
-Prompts: 
-Taxa de sucesso inicial: 
-Proporção de sucesso inicial: 
-Taxa de sucesso final: 
-Proporção de sucesso final: 
-Complexidade ciclomática média: 
-Kloc: 
+Duplicação zero em todos os trials, com o limite de 50 tokens do detector. Cada
+solução é um arquivo único e curto, sem trecho repetido acima desse tamanho.
 
-## Kata 04 - Sem IA
-Tempo: 20:05
-Taxa de sucesso: 100%
-Proporção de sucesso: 16/16
-Complexidade ciclomática média: 3,33
-Kloc: 0,075
+## Observação sobre o teste que faltou
+
+No trial `gabriel-kata02-SEM_IA`, o único teste não atendido foi
+`dois_periodos_de_24h_dobram_o_teto`: a implementação devolveu `75.00` onde o
+esperado era `80.00`. O trial foi encerrado no time-box com esse estado, conforme o
+protocolo.
+
+A análise estatística destes dados é a entrega da Sprint 3.
