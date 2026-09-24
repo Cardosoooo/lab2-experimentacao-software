@@ -1,0 +1,9 @@
+trial_id,tratamento,tempo_segundos,censurado,fora_do_intervalo_iqr,decisao
+guilherme-kata01-COM_IA,COM_IA,90,False,False,normal
+guilherme-kata02-COM_IA,COM_IA,192,False,False,normal
+gabriel-kata03-COM_IA,COM_IA,163,False,False,normal
+gabriel-kata04-COM_IA,COM_IA,57,False,False,normal
+guilherme-kata03-SEM_IA,SEM_IA,2100,True,False,"mantido: censura e limite do protocolo, nao anomalia"
+guilherme-kata04-SEM_IA,SEM_IA,1205,False,False,normal
+gabriel-kata01-SEM_IA,SEM_IA,1894,False,False,normal
+gabriel-kata02-SEM_IA,SEM_IA,2100,True,False,"mantido: censura e limite do protocolo, nao anomalia"

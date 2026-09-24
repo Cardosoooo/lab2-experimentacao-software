@@ -1,0 +1,5 @@
+variavel,alternativa,n_pares,n_pares_uteis,n_empates,estatistica,p_valor,p_minimo_possivel,tamanho_efeito,mediana_diferenca,conclusivo,observacao
+cc_media_por_metodo,two-sided,4,4,0,3.0,0.625,0.125,-0.4,-2.3415,False,"com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho"
+pct_duplicacao_cpd,two-sided,4,0,4,,,,,0.0,False,todas as diferencas sao zero; nao ha o que testar
+loc_total,two-sided,4,4,0,4.0,0.875,0.125,0.2,1.5,False,"com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho"
+cc_por_loc,two-sided,4,4,0,4.0,0.875,0.125,-0.2,-0.01880000000000001,False,"com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho"

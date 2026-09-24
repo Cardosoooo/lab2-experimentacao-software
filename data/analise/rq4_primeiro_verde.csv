@@ -1,0 +1,5 @@
+trial_id,tratamento,tempo_primeiro_verde_s,tempo_segundos,proporcao_do_total
+gabriel-kata03-COM_IA,COM_IA,150.0,163,0.92
+gabriel-kata04-COM_IA,COM_IA,54.0,57,0.947
+gabriel-kata01-SEM_IA,SEM_IA,1423.0,1894,0.751
+gabriel-kata02-SEM_IA,SEM_IA,1769.0,2100,0.842

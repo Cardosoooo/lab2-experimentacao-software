@@ -1,0 +1,9 @@
+trial_id,sujeito,kata_id,tratamento,loc_total,n_metodos,cc_total,cc_media_por_metodo,cc_por_loc,linhas_duplicadas_cpd,pct_duplicacao_cpd,min_tokens_cpd
+guilherme-kata01-COM_IA,guilherme,kata01,COM_IA,122,4,25,6.25,0.2049,0,0,50
+gabriel-kata01-SEM_IA,gabriel,kata01,SEM_IA,136,3,33,11.0,0.2426,0,0,50
+guilherme-kata02-COM_IA,guilherme,kata02,COM_IA,63,4,11,2.75,0.1746,0,0,50
+gabriel-kata02-SEM_IA,gabriel,kata02,SEM_IA,52,1,19,19.0,0.3654,0,0,50
+gabriel-kata03-COM_IA,gabriel,kata03,COM_IA,123,8,31,3.875,0.252,0,0,50
+guilherme-kata03-SEM_IA,guilherme,kata03,SEM_IA,131,9,33,3.667,0.2519,0,0,50
+gabriel-kata04-COM_IA,gabriel,kata04,COM_IA,66,5,17,3.4,0.2576,0,0,50
+guilherme-kata04-SEM_IA,guilherme,kata04,SEM_IA,50,3,10,3.333,0.2,0,0,50

@@ -1,0 +1,3 @@
+variavel,alternativa,n_pares,n_pares_uteis,n_empates,estatistica,p_valor,p_minimo_possivel,tamanho_efeito,mediana_diferenca,conclusivo,observacao
+tempo_segundos,less,4,4,0,0.0,0.0625,0.0625,-1.0,-1856.0,False,"com 4 pares uteis o menor p-valor possivel e 0.0625; significancia a 0,05 e inalcancavel por construcao do desenho"
+taxa_sucesso,greater,3,1,2,,,0.5,1.0,0.0,False,apenas 1 par nao empatado; o teste exige ao menos 2 diferencas diferentes de zero

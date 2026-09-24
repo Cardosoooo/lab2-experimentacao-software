@@ -246,10 +246,11 @@ $linha = @(
 ) -join ','
 
 $cabecalho = 'trial_id,n_arquivos,n_classes,loc_total,n_metodos,cc_total,cc_media_por_metodo,duplicacoes_cpd,linhas_duplicadas_cpd,pct_duplicacao_cpd,min_tokens_cpd,collected_at'
-if (-not (Test-Path $consolidado)) {
-    Set-Content -Path $consolidado -Value $cabecalho -Encoding utf8
-}
-Add-Content -Path $consolidado -Value $linha -Encoding utf8
+
+# O arquivo e reescrito, nao acrescido. Ele descreve um unico trial, entao precisa
+# ter exatamente uma linha de dados. Acrescentar faria uma recoleta conviver com o
+# resultado antigo, e quem lesse o arquivo depois poderia pegar o valor errado.
+Set-Content -Path $consolidado -Value @($cabecalho, $linha) -Encoding utf8
 
 Write-Host "`n== Resumo do trial $Trial ==" -ForegroundColor Cyan
 Write-Host "  arquivos.: $nArquivos"

@@ -82,6 +82,28 @@ base da `kata02`, por exemplo, passou de complexidade média 1,2 para 3,2. Os va
 de linhas de código e de duplicação não mudaram, porque vinham de campos anteriores ao
 deslocamento.
 
+### 4.1 Segundo defeito, descoberto na Sprint 3
+
+**O que aconteceu.** O mesmo script gravava o `metricas.csv` de cada trial com
+`Add-Content`, ou seja, acrescentando uma linha a cada execução. Como a recoleta
+descrita acima foi uma segunda execução, os arquivos ficaram com duas linhas: a
+antiga, com os valores errados, e a nova, correta. O arquivo de um trial deve conter
+exatamente uma linha.
+
+**Como foi descoberto.** A tabela consolidada da análise de RQ3 mostrou cada trial
+duas vezes, com valores diferentes, e o pareamento estava tomando a primeira
+ocorrência, que era justamente a errada.
+
+**Correção.** O script passou a reescrever o arquivo em vez de acrescentar. O
+carregador de dados da análise, em `analise/dados.py`, ganhou uma proteção que mantém
+apenas a coleta mais recente por trial, para que uma linha remanescente não volte a
+entrar em silêncio. Todas as métricas foram recoletadas depois da correção.
+
+**Lição para o relatório.** Os dois defeitos foram encontrados porque um número
+impossível apareceu na tela: complexidade zero num código que passa nos testes, e um
+trial duplicado. Vale registrar na discussão que a conferência de plausibilidade dos
+dados foi o que impediu que a análise rodasse sobre valores corrompidos.
+
 ## 5. A ordem dos tratamentos ficou em blocos, não alternada
 
 **O que estava previsto.** O desenho original alternava tratamento a cada trial dentro
