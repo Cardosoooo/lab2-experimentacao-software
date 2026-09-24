@@ -134,6 +134,12 @@ Os oito trials foram executados e estão registrados.
 | [`data/analise/`](data/analise) | tabelas de resultado, com a legenda das colunas no README de lá |
 | [`data/dashboard/`](data/dashboard) | as oito figuras em PNG |
 | [`relatorio/dashboard.html`](relatorio/dashboard.html) | **o dashboard**, abrir no navegador |
+| [`data/analise/dados_dashboard.json`](data/analise/dados_dashboard.json) | os mesmos resultados num único JSON, para consumo programático |
+| [`relatorio/Relatorio-final.md`](relatorio/Relatorio-final.md) | relatório final |
+
+As figuras do dashboard são geradas a partir dos CSVs. O JSON é uma exportação
+consolidada equivalente, útil para quem for reaproveitar os dados fora deste
+repositório.
 
 Para regerar tudo, a partir da raiz:
 
