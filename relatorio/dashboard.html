@@ -87,6 +87,7 @@
     border-left: 4px solid var(--alerta); border-radius: 10px;
     padding: 18px 22px; margin: 22px 0;
   }
+  .aviso.exploratoria { border-left-color: var(--com-ia); }
   .aviso h3 { margin: 0 0 8px; font-size: 16px; }
   .aviso p { margin: 0 0 10px; font-size: 14.5px; color: var(--tinta-suave); }
   .aviso p:last-child { margin-bottom: 0; }
@@ -143,6 +144,10 @@
       <div class="valor">2</div>
       <div class="rotulo">trials censurados no time-box de 35 min</div>
     </div>
+    <div class="numero">
+      <div class="valor">5</div>
+      <div class="rotulo">prompts no total nos quatro trials com IA</div>
+    </div>
   </div>
 
   <h2>RQ1 · O assistente reduz o tempo de resolução?</h2>
@@ -169,6 +174,20 @@
       tamanho de efeito de −1,000, o máximo da escala.
     </figcaption>
   </figure>
+
+  <div class="aviso exploratoria">
+    <h3>Observação exploratória · quantos prompts custou</h3>
+    <p>
+      Os quatro trials com IA consumiram <b>1, 2, 1 e 1 prompt, cinco no total</b>. O
+      enunciado trata essa contagem como métrica opcional, fora de teste de hipótese, e
+      aqui ela serve para interpretar o tempo.
+    </p>
+    <p>
+      A resolução assistida não veio de uma conversa longa. Veio de poucas interações,
+      e o resto do trial foi ler, colar e conferir a resposta contra a suíte de testes.
+      Isso também ajuda a explicar o achado da RQ4, mais abaixo.
+    </p>
+  </div>
 
   <h2>RQ2 · O assistente reduz os defeitos?</h2>
 
