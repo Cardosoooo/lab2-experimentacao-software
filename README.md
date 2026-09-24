@@ -21,12 +21,29 @@ de IA generativa na resolução de tarefas de programação.
 O detalhamento de hipóteses, variáveis, métricas e ameaças à validade está em
 [`docs/desenho-experimento.md`](docs/desenho-experimento.md).
 
-A RQ4 ficou sem par para teste estatístico, porque o tempo até o primeiro teste verde
-não foi medido em quatro dos oito trials. O motivo está em
-[`docs/desvios-sprint2.md`](docs/desvios-sprint2.md) e a questão entra no relatório
-como análise descritiva.
-
 **Quadro do grupo:** https://github.com/users/Cardosoooo/projects/4
+
+## Resultados
+
+Experimento concluído, oito trials executados e analisados. O relatório completo está
+em [`relatorio/Relatorio-final.md`](relatorio/Relatorio-final.md).
+
+| RQ | Resposta obtida |
+|----|-----------------|
+| RQ1 · tempo | **Menor com IA nas quatro katas, sem exceção.** Mediana de 126,5 s contra 1997 s. W = 0, p = 0,0625, tamanho de efeito −1,000, o máximo da escala |
+| RQ2 · defeitos | **Sem resposta estatística.** Efeito de teto: sete dos oito trials terminaram com 100% dos testes passando, sobrando um único par não empatado |
+| RQ3 · estrutura | **Sem conclusão.** Complexidade mediana menor com IA, 3,64 contra 7,33, mas direção mista entre as katas, p = 0,625, efeito −0,400. Duplicação foi zero nos oito trials |
+| RQ4 · primeiro verde | **Descritiva apenas.** A medida faltou em quatro trials, então não há par. Nos que têm, o primeiro verde chegou mais tarde dentro do trial com IA |
+| RQ5 · complexidade por linha | **Diferença encolhe ao normalizar**, 0,228 contra 0,247, p = 0,875, efeito −0,200 |
+
+**Nenhum resultado é significativo a 0,05, e isso estava previsto desde o desenho.**
+Com dois sujeitos e quatro katas são quatro pares no teste de Wilcoxon, e nessa
+configuração o menor p-valor alcançável é 0,0625. A leitura se apoia em tamanho de
+efeito e consistência de direção, não em rejeição formal de hipótese nula.
+
+As lacunas de medição da RQ2 e da RQ4 estão registradas em
+[`docs/desvios-sprint2.md`](docs/desvios-sprint2.md), com a causa e o impacto de cada
+uma. Nenhum valor foi estimado para preencher o que não foi medido.
 
 ## Desenho em uma tabela
 
@@ -54,13 +71,15 @@ docs/          Desenho do experimento, protocolo de execução e desvios observa
 katas/         As 4 katas autorais: enunciado, esqueleto, testes de aceitação e solução de referência
 ferramentas/   Código Java de apoio: cronômetro, runner de testes, utilitários
 scripts/       Scripts de preparação de ambiente, execução de trial e coleta de métricas estáticas
-analise/       Análise estatística e dashboard, em Python
+analise/       Análise estatística e geração das figuras, em Python
 data/          Dados brutos e derivados do experimento
   trials/        Código final de cada trial, uma pasta por trial
   metricas/      Saída bruta de CK e PMD por trial
+  analise/       Tabelas de resultado dos testes estatísticos
+  dashboard/     As oito figuras do dashboard, em PNG
   snapshots/     Snapshots semanais do GitHub Projects
   trials.csv     Registro consolidado dos trials
-relatorio/     Anotações dos trials e, na Sprint 3, o relatório final
+relatorio/     Anotações dos trials, dashboard e relatório final
 tools/         CK e PMD baixados localmente (fora do versionamento)
 ```
 
@@ -159,5 +178,8 @@ no desenho.
 |--------|-----------|----------|
 | Lab02S01 | Desenho do experimento e preparação | concluída |
 | Lab02S02 | Execução dos 8 trials e coleta | concluída |
-| Lab02S03 | Análise estatística e dashboard | não iniciada |
-| Relatório Final | Documento consolidado | não iniciado |
+| Lab02S03 | Análise estatística e dashboard | concluída |
+| Relatório Final | Documento consolidado | concluído |
+
+As quatro entregas estão fechadas. O repositório tem 29 Issues, todas concluídas, e 25
+cartões no quadro.
