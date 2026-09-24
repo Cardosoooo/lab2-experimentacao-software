@@ -1,0 +1,796 @@
+{
+  "meta": {
+    "titulo": "Assistentes de IA vs. Codificacao Manual",
+    "laboratorio": "Laboratorio 02 de Engenharia de Software - PUC Minas",
+    "integrantes": [
+      "Gabriel Cardoso",
+      "Guilherme Brina Ferreira"
+    ],
+    "repositorio": "Cardosoooo/lab2-experimentacao-software",
+    "desenho": "crossover within-subject, bloqueio por kata, time-box",
+    "tratamentos": [
+      "COM_IA",
+      "SEM_IA"
+    ],
+    "sujeitos": 2,
+    "katas": 4,
+    "trials": 8,
+    "trials_por_tratamento": 4,
+    "alpha": 0.05,
+    "time_box_segundos": 2100,
+    "assistente": "Claude, versao gratuita, por conversa (somente COM_IA)",
+    "aviso_poder": "Com 4 pares o menor p-valor alcancavel no Wilcoxon e 0,0625 (unilateral) e 0,125 (bilateral); portanto nenhum resultado deste experimento e significante a 0,05 por construcao do desenho, nao por caracteristica dos dados. Os graficos devem transmitir tamanho de efeito e direcao."
+  },
+  "questoes_de_pesquisa": [
+    {
+      "id": "RQ1",
+      "pergunta": "O uso de assistente de IA reduz o tempo necessario para resolver uma tarefa de programacao?"
+    },
+    {
+      "id": "RQ2",
+      "pergunta": "O uso de assistente de IA reduz a quantidade de defeitos no codigo produzido?"
+    },
+    {
+      "id": "RQ3",
+      "pergunta": "O uso de assistente de IA altera a complexidade ciclomatica ou a duplicacao do codigo produzido?"
+    },
+    {
+      "id": "RQ4",
+      "pergunta": "O assistente antecipa o primeiro teste verde ou apenas o ultimo?"
+    },
+    {
+      "id": "RQ5",
+      "pergunta": "A diferenca de complexidade se mantem apos normalizar por linhas de codigo?"
+    }
+  ],
+  "trials": [
+    {
+      "trial_id": "guilherme-kata01-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata01",
+      "tratamento": "COM_IA",
+      "ordem": 1,
+      "tempo_segundos": 90,
+      "censurado": false,
+      "tempo_primeiro_verde_s": null,
+      "testes_total": 12,
+      "testes_passando": 12.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 1,
+      "commit_final": "a9649f5"
+    },
+    {
+      "trial_id": "guilherme-kata02-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata02",
+      "tratamento": "COM_IA",
+      "ordem": 2,
+      "tempo_segundos": 192,
+      "censurado": false,
+      "tempo_primeiro_verde_s": null,
+      "testes_total": 14,
+      "testes_passando": 14.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 2,
+      "commit_final": "1129ccb"
+    },
+    {
+      "trial_id": "guilherme-kata03-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata03",
+      "tratamento": "SEM_IA",
+      "ordem": 3,
+      "tempo_segundos": 2100,
+      "censurado": true,
+      "tempo_primeiro_verde_s": null,
+      "testes_total": 15,
+      "testes_passando": null,
+      "taxa_sucesso": null,
+      "n_prompts": 0,
+      "commit_final": "e85fda6"
+    },
+    {
+      "trial_id": "guilherme-kata04-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata04",
+      "tratamento": "SEM_IA",
+      "ordem": 4,
+      "tempo_segundos": 1205,
+      "censurado": false,
+      "tempo_primeiro_verde_s": null,
+      "testes_total": 16,
+      "testes_passando": 16.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 0,
+      "commit_final": "76860aa"
+    },
+    {
+      "trial_id": "gabriel-kata01-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata01",
+      "tratamento": "SEM_IA",
+      "ordem": 1,
+      "tempo_segundos": 1894,
+      "censurado": false,
+      "tempo_primeiro_verde_s": 1423.0,
+      "testes_total": 12,
+      "testes_passando": 12.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 0,
+      "commit_final": "9f5f6f6"
+    },
+    {
+      "trial_id": "gabriel-kata02-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata02",
+      "tratamento": "SEM_IA",
+      "ordem": 2,
+      "tempo_segundos": 2100,
+      "censurado": true,
+      "tempo_primeiro_verde_s": 1769.0,
+      "testes_total": 14,
+      "testes_passando": 13.0,
+      "taxa_sucesso": 92.86,
+      "n_prompts": 0,
+      "commit_final": "ece7523"
+    },
+    {
+      "trial_id": "gabriel-kata03-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata03",
+      "tratamento": "COM_IA",
+      "ordem": 3,
+      "tempo_segundos": 163,
+      "censurado": false,
+      "tempo_primeiro_verde_s": 150.0,
+      "testes_total": 15,
+      "testes_passando": 15.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 1,
+      "commit_final": "11c2fec"
+    },
+    {
+      "trial_id": "gabriel-kata04-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata04",
+      "tratamento": "COM_IA",
+      "ordem": 4,
+      "tempo_segundos": 57,
+      "censurado": false,
+      "tempo_primeiro_verde_s": 54.0,
+      "testes_total": 16,
+      "testes_passando": 16.0,
+      "taxa_sucesso": 100.0,
+      "n_prompts": 1,
+      "commit_final": "0c1fbb3"
+    }
+  ],
+  "metricas": [
+    {
+      "trial_id": "guilherme-kata01-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata01",
+      "tratamento": "COM_IA",
+      "loc_total": 122,
+      "n_metodos": 4,
+      "cc_total": 25,
+      "cc_media_por_metodo": 6.25,
+      "cc_por_loc": 0.2049,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "gabriel-kata01-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata01",
+      "tratamento": "SEM_IA",
+      "loc_total": 136,
+      "n_metodos": 3,
+      "cc_total": 33,
+      "cc_media_por_metodo": 11.0,
+      "cc_por_loc": 0.2426,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "guilherme-kata02-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata02",
+      "tratamento": "COM_IA",
+      "loc_total": 63,
+      "n_metodos": 4,
+      "cc_total": 11,
+      "cc_media_por_metodo": 2.75,
+      "cc_por_loc": 0.1746,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "gabriel-kata02-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata02",
+      "tratamento": "SEM_IA",
+      "loc_total": 52,
+      "n_metodos": 1,
+      "cc_total": 19,
+      "cc_media_por_metodo": 19.0,
+      "cc_por_loc": 0.3654,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "gabriel-kata03-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata03",
+      "tratamento": "COM_IA",
+      "loc_total": 123,
+      "n_metodos": 8,
+      "cc_total": 31,
+      "cc_media_por_metodo": 3.875,
+      "cc_por_loc": 0.252,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "guilherme-kata03-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata03",
+      "tratamento": "SEM_IA",
+      "loc_total": 131,
+      "n_metodos": 9,
+      "cc_total": 33,
+      "cc_media_por_metodo": 3.667,
+      "cc_por_loc": 0.2519,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "gabriel-kata04-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata04",
+      "tratamento": "COM_IA",
+      "loc_total": 66,
+      "n_metodos": 5,
+      "cc_total": 17,
+      "cc_media_por_metodo": 3.4,
+      "cc_por_loc": 0.2576,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    },
+    {
+      "trial_id": "guilherme-kata04-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata04",
+      "tratamento": "SEM_IA",
+      "loc_total": 50,
+      "n_metodos": 3,
+      "cc_total": 10,
+      "cc_media_por_metodo": 3.333,
+      "cc_por_loc": 0.2,
+      "linhas_duplicadas_cpd": 0,
+      "pct_duplicacao_cpd": 0,
+      "min_tokens_cpd": 50
+    }
+  ],
+  "descritivas": {
+    "tempo_segundos": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 126.5,
+        "q1": 81.75,
+        "q3": 170.25,
+        "iqr": 88.5,
+        "minimo": 57.0,
+        "maximo": 192.0
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 4,
+        "mediana": 1997.0,
+        "q1": 1721.75,
+        "q3": 2100.0,
+        "iqr": 378.25,
+        "minimo": 1205.0,
+        "maximo": 2100.0
+      }
+    ],
+    "taxa_sucesso": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 100.0,
+        "q1": 100.0,
+        "q3": 100.0,
+        "iqr": 0.0,
+        "minimo": 100.0,
+        "maximo": 100.0
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 3,
+        "mediana": 100.0,
+        "q1": 96.43,
+        "q3": 100.0,
+        "iqr": 3.57,
+        "minimo": 92.86,
+        "maximo": 100.0
+      }
+    ],
+    "cc_media_por_metodo": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 3.6375,
+        "q1": 3.2375,
+        "q3": 4.4688,
+        "iqr": 1.2313,
+        "minimo": 2.75,
+        "maximo": 6.25
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 4,
+        "mediana": 7.3335,
+        "q1": 3.5835,
+        "q3": 13.0,
+        "iqr": 9.4165,
+        "minimo": 3.333,
+        "maximo": 19.0
+      }
+    ],
+    "pct_duplicacao_cpd": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0,
+        "minimo": 0.0,
+        "maximo": 0.0
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 4,
+        "mediana": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "iqr": 0.0,
+        "minimo": 0.0,
+        "maximo": 0.0
+      }
+    ],
+    "loc_total": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 94.0,
+        "q1": 65.25,
+        "q3": 122.25,
+        "iqr": 57.0,
+        "minimo": 63.0,
+        "maximo": 123.0
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 4,
+        "mediana": 91.5,
+        "q1": 51.5,
+        "q3": 132.25,
+        "iqr": 80.75,
+        "minimo": 50.0,
+        "maximo": 136.0
+      }
+    ],
+    "cc_por_loc": [
+      {
+        "tratamento": "COM_IA",
+        "n": 4,
+        "mediana": 0.2284,
+        "q1": 0.1973,
+        "q3": 0.2534,
+        "iqr": 0.0561,
+        "minimo": 0.1746,
+        "maximo": 0.2576
+      },
+      {
+        "tratamento": "SEM_IA",
+        "n": 4,
+        "mediana": 0.2472,
+        "q1": 0.2319,
+        "q3": 0.2803,
+        "iqr": 0.0483,
+        "minimo": 0.2,
+        "maximo": 0.3654
+      }
+    ]
+  },
+  "pares": {
+    "tempo_segundos": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 90,
+        "SEM_IA": 1894,
+        "diferenca": -1804,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 192,
+        "SEM_IA": 2100,
+        "diferenca": -1908,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 163,
+        "SEM_IA": 2100,
+        "diferenca": -1937,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 57,
+        "SEM_IA": 1205,
+        "diferenca": -1148,
+        "par_completo": true
+      }
+    ],
+    "taxa_sucesso": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 100.0,
+        "SEM_IA": 100.0,
+        "diferenca": 0.0,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 100.0,
+        "SEM_IA": 92.86,
+        "diferenca": 7.14,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 100.0,
+        "SEM_IA": null,
+        "diferenca": null,
+        "par_completo": false
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 100.0,
+        "SEM_IA": 100.0,
+        "diferenca": 0.0,
+        "par_completo": true
+      }
+    ],
+    "cc_media_por_metodo": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 6.25,
+        "SEM_IA": 11.0,
+        "diferenca": -4.75,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 2.75,
+        "SEM_IA": 19.0,
+        "diferenca": -16.25,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 3.875,
+        "SEM_IA": 3.667,
+        "diferenca": 0.208,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 3.4,
+        "SEM_IA": 3.333,
+        "diferenca": 0.067,
+        "par_completo": true
+      }
+    ],
+    "pct_duplicacao_cpd": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 0,
+        "SEM_IA": 0,
+        "diferenca": 0,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 0,
+        "SEM_IA": 0,
+        "diferenca": 0,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 0,
+        "SEM_IA": 0,
+        "diferenca": 0,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 0,
+        "SEM_IA": 0,
+        "diferenca": 0,
+        "par_completo": true
+      }
+    ],
+    "loc_total": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 122,
+        "SEM_IA": 136,
+        "diferenca": -14,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 63,
+        "SEM_IA": 52,
+        "diferenca": 11,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 123,
+        "SEM_IA": 131,
+        "diferenca": -8,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 66,
+        "SEM_IA": 50,
+        "diferenca": 16,
+        "par_completo": true
+      }
+    ],
+    "cc_por_loc": [
+      {
+        "kata_id": "kata01",
+        "COM_IA": 0.2049,
+        "SEM_IA": 0.2426,
+        "diferenca": -0.0377,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata02",
+        "COM_IA": 0.1746,
+        "SEM_IA": 0.3654,
+        "diferenca": -0.1908,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata03",
+        "COM_IA": 0.252,
+        "SEM_IA": 0.2519,
+        "diferenca": 0.0001,
+        "par_completo": true
+      },
+      {
+        "kata_id": "kata04",
+        "COM_IA": 0.2576,
+        "SEM_IA": 0.2,
+        "diferenca": 0.0576,
+        "par_completo": true
+      }
+    ]
+  },
+  "testes_wilcoxon": [
+    {
+      "variavel": "tempo_segundos",
+      "alternativa": "less",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 0.0,
+      "p_valor": 0.0625,
+      "p_minimo_possivel": 0.0625,
+      "tamanho_efeito": -1.0,
+      "mediana_diferenca": -1856.0,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.0625; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "tempo e defeitos"
+    },
+    {
+      "variavel": "taxa_sucesso",
+      "alternativa": "greater",
+      "n_pares": 3,
+      "n_pares_uteis": 1,
+      "n_empates": 2,
+      "estatistica": null,
+      "p_valor": null,
+      "p_minimo_possivel": 0.5,
+      "tamanho_efeito": 1.0,
+      "mediana_diferenca": 0.0,
+      "conclusivo": false,
+      "observacao": "apenas 1 par nao empatado; o teste exige ao menos 2 diferencas diferentes de zero",
+      "grupo": "tempo e defeitos"
+    },
+    {
+      "variavel": "cc_media_por_metodo",
+      "alternativa": "two-sided",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 3.0,
+      "p_valor": 0.625,
+      "p_minimo_possivel": 0.125,
+      "tamanho_efeito": -0.4,
+      "mediana_diferenca": -2.3415,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "estrutura e tamanho"
+    },
+    {
+      "variavel": "pct_duplicacao_cpd",
+      "alternativa": "two-sided",
+      "n_pares": 4,
+      "n_pares_uteis": 0,
+      "n_empates": 4,
+      "estatistica": null,
+      "p_valor": null,
+      "p_minimo_possivel": null,
+      "tamanho_efeito": null,
+      "mediana_diferenca": 0.0,
+      "conclusivo": false,
+      "observacao": "todas as diferencas sao zero; nao ha o que testar",
+      "grupo": "estrutura e tamanho"
+    },
+    {
+      "variavel": "loc_total",
+      "alternativa": "two-sided",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 4.0,
+      "p_valor": 0.875,
+      "p_minimo_possivel": 0.125,
+      "tamanho_efeito": 0.2,
+      "mediana_diferenca": 1.5,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "estrutura e tamanho"
+    },
+    {
+      "variavel": "cc_por_loc",
+      "alternativa": "two-sided",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 4.0,
+      "p_valor": 0.875,
+      "p_minimo_possivel": 0.125,
+      "tamanho_efeito": -0.2,
+      "mediana_diferenca": -0.0188,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.1250; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "estrutura e tamanho"
+    }
+  ],
+  "outliers": [
+    {
+      "trial_id": "guilherme-kata01-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 90,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "guilherme-kata02-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 192,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "gabriel-kata03-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 163,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "gabriel-kata04-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_segundos": 57,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "guilherme-kata03-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 2100,
+      "censurado": true,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "mantido: censura e limite do protocolo, nao anomalia"
+    },
+    {
+      "trial_id": "guilherme-kata04-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1205,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "gabriel-kata01-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 1894,
+      "censurado": false,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "normal"
+    },
+    {
+      "trial_id": "gabriel-kata02-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_segundos": 2100,
+      "censurado": true,
+      "fora_do_intervalo_iqr": false,
+      "decisao": "mantido: censura e limite do protocolo, nao anomalia"
+    }
+  ],
+  "rq4_primeiro_verde": [
+    {
+      "trial_id": "gabriel-kata03-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_primeiro_verde_s": 150.0,
+      "tempo_segundos": 163,
+      "proporcao_do_total": 0.92
+    },
+    {
+      "trial_id": "gabriel-kata04-COM_IA",
+      "tratamento": "COM_IA",
+      "tempo_primeiro_verde_s": 54.0,
+      "tempo_segundos": 57,
+      "proporcao_do_total": 0.947
+    },
+    {
+      "trial_id": "gabriel-kata01-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_primeiro_verde_s": 1423.0,
+      "tempo_segundos": 1894,
+      "proporcao_do_total": 0.751
+    },
+    {
+      "trial_id": "gabriel-kata02-SEM_IA",
+      "tratamento": "SEM_IA",
+      "tempo_primeiro_verde_s": 1769.0,
+      "tempo_segundos": 2100,
+      "proporcao_do_total": 0.842
+    }
+  ],
+  "notas_para_visualizacao": [
+    "Dois trials sao censurados: tempo_segundos = 2100 com censurado = true. Marque com hachura ou anotacao, senao parecem tempos reais.",
+    "A RQ2 nao tem teste: 7 dos 8 trials terminaram com todos os testes passando. Um grafico da taxa de sucesso vai parecer vazio, e e esse o resultado: efeito de teto.",
+    "A duplicacao e zero nos oito trials. Nao rende grafico comparativo; vale uma nota de texto em vez de um eixo achatado.",
+    "A RQ4 tem so quatro pontos, todos do mesma sujeito (Gabriel). Nao da para comparar tratamentos pareados, apenas mostrar os quatro valores.",
+    "A escala do tempo e muito desigual, de 57 a 2100 segundos. Escala logaritmica ou eixo quebrado ajuda a nao esmagar o grupo com IA.",
+    "Nenhum resultado e conclusivo a 0,05 (veja meta.aviso_poder). Mostre tamanho de efeito e direcao, nao um carimbo de significante ou nao significante.",
+    "Tempo ate 1o teste verde so foi medido em 4 trials; nos 4 do outro sujeito a medida foi perdida.",
+    "O numero de prompts (n_prompts) e variavel exploratoria: 1, 2, 1 e 1 nos trials COM_IA; nao entra em teste de hipotese."
+  ]
+}
