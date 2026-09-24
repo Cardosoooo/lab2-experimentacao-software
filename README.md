@@ -126,6 +126,24 @@ Os oito trials foram executados e estão registrados.
 | [`relatorio/Relatorio.md`](relatorio/Relatorio.md) | leitura rápida dos oito trials |
 | [`docs/desvios-sprint2.md`](docs/desvios-sprint2.md) | desvios de protocolo e lacunas de medição |
 
+## Análise e dashboard
+
+| Caminho | Conteúdo |
+|---------|----------|
+| [`analise/`](analise) | scripts de estatística e de geração das figuras |
+| [`data/analise/`](data/analise) | tabelas de resultado, com a legenda das colunas no README de lá |
+| [`data/dashboard/`](data/dashboard) | as oito figuras em PNG |
+| [`relatorio/dashboard.html`](relatorio/dashboard.html) | **o dashboard**, abrir no navegador |
+
+Para regerar tudo, a partir da raiz:
+
+```
+pip install -r scripts/requirements.txt
+python analise/analise_rq1_rq2.py
+python analise/analise_rq3_rq5.py
+python analise/dashboard.py
+```
+
 Dois dos oito trials foram censurados no time-box, o que é resultado válido e previsto
 no desenho.
 

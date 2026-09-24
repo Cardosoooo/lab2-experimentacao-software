@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Laboratório 02</title>
+<style>
+  :root {
+    --tinta: #1C2430;
+    --tinta-suave: #55606E;
+    --linha: #E2E6EB;
+    --fundo: #FFFFFF;
+    --fundo-suave: #F6F8FA;
+    --com-ia: #2E6F95;
+    --sem-ia: #C1562E;
+    --alerta: #8A2E2E;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fundo-suave);
+    color: var(--tinta);
+    font: 16px/1.65 "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .pagina { max-width: 1060px; margin: 0 auto; padding: 0 24px 80px; }
+
+  header.capa {
+    background: var(--fundo);
+    border-bottom: 1px solid var(--linha);
+    padding: 44px 0 34px;
+    margin-bottom: 36px;
+  }
+  header.capa .pagina { padding-bottom: 0; }
+  .sobretitulo {
+    font-size: 12.5px; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--tinta-suave); margin: 0 0 10px;
+  }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 12px; font-weight: 650; }
+  .subtitulo { font-size: 17px; color: var(--tinta-suave); margin: 0 0 22px; max-width: 72ch; }
+  .meta { font-size: 13.5px; color: var(--tinta-suave); }
+  .meta strong { color: var(--tinta); font-weight: 600; }
+
+  .numeros {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px; margin: 30px 0 8px;
+  }
+  .numero {
+    background: var(--fundo); border: 1px solid var(--linha); border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .numero .valor { font-size: 26px; font-weight: 650; line-height: 1.15; }
+  .numero .rotulo { font-size: 13px; color: var(--tinta-suave); margin-top: 5px; }
+  .numero.destaque .valor { color: var(--com-ia); }
+
+  h2 {
+    font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--tinta-suave); font-weight: 650;
+    margin: 48px 0 16px; padding-bottom: 9px; border-bottom: 1px solid var(--linha);
+  }
+
+  figure {
+    background: var(--fundo); border: 1px solid var(--linha); border-radius: 12px;
+    margin: 0 0 22px; padding: 20px 22px 18px; overflow: hidden;
+  }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption {
+    margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linha);
+    font-size: 14.5px; color: var(--tinta-suave);
+  }
+  figcaption b { color: var(--tinta); font-weight: 600; }
+
+  .par { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 860px) { .par { grid-template-columns: 1fr; } }
+
+  table { width: 100%; border-collapse: collapse; background: var(--fundo); font-size: 14.5px; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--linha); }
+  th { font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--tinta-suave); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tabela-caixa { border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; }
+  tr:last-child td { border-bottom: none; }
+  .com { color: var(--com-ia); font-weight: 600; }
+  .sem { color: var(--sem-ia); font-weight: 600; }
+  .vazio { color: var(--alerta); font-style: italic; }
+
+  .aviso {
+    background: var(--fundo); border: 1px solid var(--linha);
+    border-left: 4px solid var(--alerta); border-radius: 10px;
+    padding: 18px 22px; margin: 22px 0;
+  }
+  .aviso h3 { margin: 0 0 8px; font-size: 16px; }
+  .aviso p { margin: 0 0 10px; font-size: 14.5px; color: var(--tinta-suave); }
+  .aviso p:last-child { margin-bottom: 0; }
+
+  footer {
+    margin-top: 54px; padding-top: 22px; border-top: 1px solid var(--linha);
+    font-size: 13.5px; color: var(--tinta-suave);
+  }
+  footer a { color: var(--com-ia); }
+  code {
+    background: var(--fundo-suave); border: 1px solid var(--linha);
+    border-radius: 4px; padding: 1px 5px; font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <div class="pagina">
+    <p class="sobretitulo">Laboratório de Experimentação de Software · Lab02S03</p>
+    <h1>Assistentes de IA vs. codificação manual</h1>
+    <p class="subtitulo">
+      Dashboard do experimento controlado que mede o efeito de um assistente de IA
+      generativa sobre tempo de resolução, defeitos e estrutura do código.
+    </p>
+    <p class="meta">
+      <strong>Gabriel Cardoso</strong> e <strong>Guilherme Brina Ferreira</strong> ·
+      PUC Minas · Engenharia de Software · 6º período ·
+      Professor Danilo Maia
+    </p>
+  </div>
+</header>
+
+<div class="pagina">
+
+  <div class="numeros">
+    <div class="numero destaque">
+      <div class="valor">4 de 4</div>
+      <div class="rotulo">katas resolvidas mais rápido com assistente</div>
+    </div>
+    <div class="numero">
+      <div class="valor">126,5 s</div>
+      <div class="rotulo">mediana do tempo com IA</div>
+    </div>
+    <div class="numero">
+      <div class="valor">1997 s</div>
+      <div class="rotulo">mediana do tempo sem IA</div>
+    </div>
+    <div class="numero">
+      <div class="valor">8</div>
+      <div class="rotulo">trials, 4 por tratamento</div>
+    </div>
+    <div class="numero">
+      <div class="valor">2</div>
+      <div class="rotulo">trials censurados no time-box de 35 min</div>
+    </div>
+  </div>
+
+  <h2>RQ1 · O assistente reduz o tempo de resolução?</h2>
+
+  <figure>
+    <img src="../data/dashboard/fig01_tempo_distribuicao.png"
+         alt="Boxplot do tempo de resolução por tratamento, com os pontos individuais e os trials censurados marcados.">
+    <figcaption>
+      Cada caixa resume apenas quatro medidas, por isso os pontos individuais aparecem
+      por cima. Os dois <b>X</b> são trials censurados: bateram o time-box de 2100
+      segundos sem concluir a kata, e o valor registrado é o limite, não um tempo de
+      conclusão. A escala é logarítmica porque os tempos vão de 57 a 2100 segundos.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="../data/dashboard/fig02_tempo_pares.png"
+         alt="Gráfico pareado do tempo por kata, ligando o valor sem IA ao valor com IA.">
+    <figcaption>
+      Este é o desenho do experimento desenhado. Cada linha é a <b>mesma kata</b>
+      resolvida nos dois tratamentos, o que neutraliza a dificuldade do exercício. As
+      quatro linhas apontam para o mesmo lado, com reduções de 1148 a 1937 segundos.
+      O teste de Wilcoxon devolveu W igual a zero, o valor mais extremo possível, e
+      tamanho de efeito de −1,000, o máximo da escala.
+    </figcaption>
+  </figure>
+
+  <h2>RQ2 · O assistente reduz os defeitos?</h2>
+
+  <figure>
+    <img src="../data/dashboard/fig03_taxa_sucesso.png"
+         alt="Barras da taxa de sucesso dos testes por kata e tratamento.">
+    <figcaption>
+      <b>Efeito de teto.</b> Sete dos oito trials terminaram com todos os testes
+      passando, então quase não há variação para medir. Apenas a kata02 sem IA difere,
+      com 13 de 14 testes. Sobra um único par não empatado, e o teste de Wilcoxon exige
+      pelo menos dois. A RQ2 fica sem resposta estatística, e isso é um resultado do
+      experimento, não uma falha de análise.
+    </figcaption>
+  </figure>
+
+  <h2>RQ3 e RQ5 · O assistente altera a estrutura do código?</h2>
+
+  <figure>
+    <img src="../data/dashboard/fig04_complexidade.png"
+         alt="Distribuição e pares da complexidade ciclomática média por método.">
+    <figcaption>
+      A mediana cai de 7,33 para 3,64 com assistente, mas os pares contam uma história
+      menos limpa: duas katas ficaram menos complexas com IA e duas ficaram
+      ligeiramente mais. A diferença grande vem quase toda da kata02, em que a solução
+      manual concentrou toda a lógica em um único método.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="../data/dashboard/fig05_loc_controle.png"
+         alt="Dispersão de linhas de código contra complexidade ciclomática total, por tratamento.">
+    <figcaption>
+      Linhas de código entram como <b>variável de controle obrigatória</b>. O enunciado
+      alerta que código gerado por IA tende a ser mais verboso, e sem normalizar por
+      tamanho um arquivo maior pareceria mais complexo. Aqui os dois tratamentos se
+      misturam no mesmo espaço, sem separação visível por tamanho.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img src="../data/dashboard/fig06_rq5_complexidade_normalizada.png"
+         alt="Distribuição e pares da complexidade por linha de código.">
+    <figcaption>
+      Esta é a questão própria do grupo. Ao dividir a complexidade pelo tamanho, a
+      diferença encolhe: mediana de 0,228 com IA contra 0,247 sem IA. Somando com a
+      figura anterior, a leitura é que a diferença da RQ3 vem mais de <b>como o código
+      foi dividido em métodos</b> do que de densidade de decisão por linha.
+    </figcaption>
+  </figure>
+
+  <h2>RQ4 · O assistente antecipa o primeiro teste verde?</h2>
+
+  <figure>
+    <img src="../data/dashboard/fig07_rq4_primeiro_verde.png"
+         alt="Barras mostrando, em cada trial, o tempo até o primeiro teste passar dentro do tempo total.">
+    <figcaption>
+      Segunda questão própria do grupo, e a que mais sofreu com falha de instrumentação:
+      <b>só quatro dos oito trials têm essa medida</b>. Como nenhuma kata tem os dois
+      tratamentos medidos, não existe par e o teste não se aplica. O que aparece é
+      contraintuitivo e vale discussão: com assistente, o primeiro teste verde chega com
+      92% e 95% do trial já decorrido, enquanto sem assistente chega com 75% e 84%. A
+      solução assistida chega quase pronta de uma vez, em vez de crescer aos poucos.
+    </figcaption>
+  </figure>
+
+  <h2>Síntese dos testes</h2>
+
+  <figure>
+    <img src="../data/dashboard/fig08_tamanhos_de_efeito.png"
+         alt="Tamanho de efeito de cada variável, com o p-valor ao lado.">
+    <figcaption>
+      Nenhuma marca de significância aparece aqui de propósito. Com quatro pares, o
+      menor p-valor alcançável no teste de Wilcoxon é 0,0625 unilateral e 0,125
+      bilateral, então <b>0,05 é inatingível por construção do desenho</b>, e não por
+      característica dos dados. A linha tracejada em cinza é a RQ2, cujo efeito foi
+      calculado sobre um único par útil e não deve ser interpretado.
+    </figcaption>
+  </figure>
+
+  <div class="tabela-caixa">
+    <table>
+      <thead>
+        <tr>
+          <th>Variável</th>
+          <th class="num">Mediana com IA</th>
+          <th class="num">Mediana sem IA</th>
+          <th class="num">p-valor</th>
+          <th class="num">Tamanho de efeito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tempo até o verde (RQ1)</td>
+          <td class="num com">126,5 s</td>
+          <td class="num sem">1997 s</td>
+          <td class="num">0,0625</td>
+          <td class="num">−1,000</td>
+        </tr>
+        <tr>
+          <td>Taxa de sucesso (RQ2)</td>
+          <td class="num com">100%</td>
+          <td class="num sem">100%</td>
+          <td class="num vazio">não se aplica</td>
+          <td class="num vazio">1 par útil</td>
+        </tr>
+        <tr>
+          <td>Complexidade por método (RQ3)</td>
+          <td class="num com">3,64</td>
+          <td class="num sem">7,33</td>
+          <td class="num">0,625</td>
+          <td class="num">−0,400</td>
+        </tr>
+        <tr>
+          <td>Duplicação de código (RQ3)</td>
+          <td class="num com">0%</td>
+          <td class="num sem">0%</td>
+          <td class="num vazio">sem variação</td>
+          <td class="num vazio">—</td>
+        </tr>
+        <tr>
+          <td>Linhas de código (controle)</td>
+          <td class="num com">94</td>
+          <td class="num sem">91,5</td>
+          <td class="num">0,875</td>
+          <td class="num">+0,200</td>
+        </tr>
+        <tr>
+          <td>Complexidade por linha (RQ5)</td>
+          <td class="num com">0,228</td>
+          <td class="num sem">0,247</td>
+          <td class="num">0,875</td>
+          <td class="num">−0,200</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Como ler estes resultados</h2>
+
+  <div class="aviso">
+    <h3>Nenhum resultado é significativo a 0,05, e isso estava previsto</h3>
+    <p>
+      O grupo tem dois integrantes e quatro katas, o que dá quatro pares no teste de
+      Wilcoxon. Nessa configuração o menor p-valor possível é 0,0625. A limitação foi
+      declarada no desenho do experimento, na Sprint 1, antes de qualquer dado ser
+      coletado.
+    </p>
+    <p>
+      A consequência prática é que a leitura se apoia em <b>tamanho de efeito e
+      consistência de direção</b>. No caso da RQ1, as quatro katas apontaram para o
+      mesmo lado e o efeito foi o máximo da escala, o que é o resultado mais forte que
+      este desenho permite produzir.
+    </p>
+  </div>
+
+  <div class="aviso">
+    <h3>Duas lacunas de medição</h3>
+    <p>
+      O tempo até o primeiro teste verde não foi registrado em quatro trials, o que
+      deixou a RQ4 sem par. E um trial censurado não teve a contagem de testes
+      registrada no instante dos 35 minutos, o que tirou uma observação da RQ2.
+    </p>
+    <p>
+      As duas lacunas estão documentadas em <code>docs/desvios-sprint2.md</code>, com a
+      causa e o impacto em cada questão. Nenhum valor foi estimado para preencher o que
+      não foi medido.
+    </p>
+  </div>
+
+  <footer>
+    <p>
+      Figuras geradas por <code>analise/dashboard.py</code> a partir das tabelas de
+      <code>data/analise/</code>, produzidas por <code>analise_rq1_rq2.py</code> e
+      <code>analise_rq3_rq5.py</code>. Pandas, Matplotlib e Seaborn.
+      Dados brutos em <code>data/trials.csv</code> e <code>data/metricas/</code>.
+    </p>
+    <p>
+      Repositório: <a href="https://github.com/Cardosoooo/lab2-experimentacao-software">Cardosoooo/lab2-experimentacao-software</a>
+      · Quadro: <a href="https://github.com/users/Cardosoooo/projects/4">GitHub Projects</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
