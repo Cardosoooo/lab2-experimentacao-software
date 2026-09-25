@@ -31,9 +31,9 @@ em [`relatorio/Relatorio-final.md`](relatorio/Relatorio-final.md).
 | RQ | Resposta obtida |
 |----|-----------------|
 | RQ1 · tempo | **Menor com IA nas quatro katas, sem exceção.** Mediana de 126,5 s contra 1997 s. W = 0, p = 0,0625, tamanho de efeito −1,000, o máximo da escala |
-| RQ2 · defeitos | **Sem resposta estatística.** Efeito de teto: sete dos oito trials terminaram com 100% dos testes passando, sobrando um único par não empatado |
-| RQ3 · estrutura | **Sem conclusão.** Complexidade mediana menor com IA, 3,64 contra 7,33, mas direção mista entre as katas, p = 0,625, efeito −0,400. Duplicação foi zero nos oito trials |
-| RQ4 · primeiro verde | **Descritiva apenas.** A medida faltou em quatro trials, então não há par. Nos que têm, o primeiro verde chegou mais tarde dentro do trial com IA |
+| RQ2 · defeitos | **Direção favorável, sem conclusão.** Efeito de teto: seis dos oito trials com 100% dos testes passando, sobrando dois pares não empatados. p = 0,250, que é também o menor valor alcançável com dois pares |
+| RQ3 · estrutura | **Sem conclusão.** Complexidade mediana menor com IA, 3,64 contra 7,33, mas direção mista entre as katas, p = 0,625, efeito −0,400. Duplicação foi zero nos oito trials, sem variação para testar |
+| RQ4 · primeiro verde | **Duas leituras que discordam.** Em segundos, muito mais cedo com IA nas quatro katas, p = 0,0625, efeito −1,000. Como fração do trial, que é a pergunta como formulada, o efeito cai para +0,200 com p = 0,688 |
 | RQ5 · complexidade por linha | **Diferença encolhe ao normalizar**, 0,228 contra 0,247, p = 0,875, efeito −0,200 |
 
 **Nenhum resultado é significativo a 0,05, e isso estava previsto desde o desenho.**
@@ -41,9 +41,14 @@ Com dois sujeitos e quatro katas são quatro pares no teste de Wilcoxon, e nessa
 configuração o menor p-valor alcançável é 0,0625. A leitura se apoia em tamanho de
 efeito e consistência de direção, não em rejeição formal de hipótese nula.
 
-As lacunas de medição da RQ2 e da RQ4 estão registradas em
-[`docs/desvios-sprint2.md`](docs/desvios-sprint2.md), com a causa e o impacto de cada
-uma. Nenhum valor foi estimado para preencher o que não foi medido.
+**Sobre a origem dos dados.** Cinco valores do conjunto não vieram da instrumentação:
+o tempo até o primeiro teste verde dos quatro trials do Guilherme e a contagem de
+testes de um trial censurado foram informados pelos sujeitos após a execução. Os
+horários de início e fim desses quatro trials foram derivados da hora do commit. Tudo
+está registrado em [`docs/desvios-sprint2.md`](docs/desvios-sprint2.md), com a regra
+usada em cada caso. A RQ4 e a observação da kata03 na RQ2 se apoiam nesses valores e
+devem ser lidas como evidência de qualidade inferior às demais questões, que dependem
+apenas de medida automatizada.
 
 ## Desenho em uma tabela
 

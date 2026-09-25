@@ -256,9 +256,11 @@ def figura_taxa_sucesso(pares: pd.DataFrame) -> None:
     _titulo(
         ax,
         "RQ2 · Taxa de sucesso por kata",
-        "Efeito de teto: 7 dos 8 trials terminaram com 100%. Só um par difere, e o teste não se aplica.",
+        "Efeito de teto: 6 dos 8 trials terminaram com 100%. Os dois abaixo disso são trials sem IA.",
     )
-    ax.legend(loc="lower right", bbox_to_anchor=(1.0, 1.005), ncols=2,
+    # A legenda vai abaixo do eixo: acima ela colide com o subtitulo, que e longo e
+    # ocupa toda a largura do painel.
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.10), ncols=2,
               frameon=False)
     _salvar(fig, "fig03_taxa_sucesso.png")
 
@@ -359,14 +361,16 @@ def figura_rq4(rq4: pd.DataFrame) -> None:
                 va="center", fontsize=10.5, color="#4A4A4A")
 
     ax.set_yticks(range(len(rq4)))
-    ax.set_yticklabels([t.replace("gabriel-", "") for t in rq4["trial_id"]][::-1])
+    ax.set_yticklabels(
+        [f"{l['kata_id']} · {l['sujeito'].capitalize()}" for _, l in rq4.iterrows()][::-1]
+    )
     ax.set_xlim(0, 2600)
     ax.set_xlabel("Tempo (s)")
     ax.grid(axis="y", visible=False)
     _titulo(
         ax,
         "RQ4 · Quando chega o primeiro teste verde",
-        "Barra cheia é o trial inteiro; a parte colorida vai até o primeiro teste passar. Só 4 dos 8 trials têm a medida.",
+        "Barra cheia é o trial inteiro; a parte colorida vai até o primeiro teste passar.",
     )
     _legenda_tratamentos(ax, loc="upper right")
     _salvar(fig, "fig07_rq4_primeiro_verde.png")
@@ -380,6 +384,8 @@ def figura_efeitos(testes: pd.DataFrame) -> None:
         "taxa_sucesso": "Taxa de sucesso (RQ2)",
         "cc_media_por_metodo": "Complexidade por método (RQ3)",
         "pct_duplicacao_cpd": "Duplicação (RQ3)",
+        "tempo_primeiro_verde_s": "1º verde em segundos (RQ4)",
+        "proporcao_primeiro_verde": "1º verde como fração do trial (RQ4)",
         "loc_total": "Linhas de código (controle)",
         "cc_por_loc": "Complexidade por linha (RQ5)",
     }
@@ -402,17 +408,24 @@ def figura_efeitos(testes: pd.DataFrame) -> None:
                    color=cor if testavel else "white",
                    edgecolor="white" if testavel else cor)
 
-        texto = (f"p = {linha['p_valor']:.3f}   n={int(linha['n_pares_uteis'])} pares úteis"
-                 if testavel else
-                 f"não testável: {int(linha['n_pares_uteis'])} par útil")
-        ax.text(efeito + (0.06 if efeito >= 0 else -0.06), y, texto,
+        # O texto fica curto de proposito: no efeito maximo, -1,0, uma anotacao longa
+        # invade a area dos rotulos do eixo. O numero de pares so aparece quando foge
+        # dos 4 habituais, que e o caso da RQ2.
+        uteis = int(linha["n_pares_uteis"])
+        if testavel:
+            texto = f"p = {linha['p_valor']:.3f}"
+            if uteis != 4:
+                texto += f"  ·  {uteis} pares"
+        else:
+            texto = f"não testável · {uteis} par"
+        ax.text(efeito + (0.05 if efeito >= 0 else -0.05), y, texto,
                 va="center", ha="left" if efeito >= 0 else "right",
                 fontsize=10, color="#4A4A4A" if testavel else "#8A2E2E")
 
     ax.axvline(0, color="#777777", linewidth=1.2)
     ax.set_yticks(range(len(testes)))
     ax.set_yticklabels(list(testes["rotulo"])[::-1])
-    ax.set_xlim(-1.9, 2.0)
+    ax.set_xlim(-2.2, 2.2)
     ax.set_xlabel("Tamanho de efeito (rank-biserial)   ←  menor com IA        maior com IA  →")
     ax.grid(axis="y", visible=False)
     _titulo(

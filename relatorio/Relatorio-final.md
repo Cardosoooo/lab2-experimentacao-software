@@ -25,8 +25,9 @@ within-subject com time-box de 35 minutos. Foram executados 8 trials, 4 por trat
 - O tratamento `COM_IA` foi consistentemente mais rápido: mediana de **126,5 s** contra **1997 s** sem IA,
   com o tempo com IA menor que o sem IA **nas quatro katas** (diferenças de −1148 s a −1937 s).
 - Na **qualidade funcional**, houve efeito de teto: todos os trials com IA terminaram com 100% dos testes
-  passando (4/4); sem IA, dois trials não foram concluídos no time-box (censurados em 2100 s), um deles
-  com um teste falhando. A taxa de sucesso não produziu comparação estatística útil.
+  passando (4/4); sem IA, dois trials não foram concluídos no time-box (censurados em 2100 s), com 13/14 e
+  12/15 testes passando ao fim do tempo. São os dois únicos pares não empatados, e o teste devolveu
+  p = 0,250, o mínimo alcançável nessa configuração.
 - Na **estrutura do código**, a complexidade ciclomática média por método foi menor com IA
   (mediana 3,64 contra 7,33 sem IA), mas a diferença está concentrada em duas katas; o número de linhas e
   a complexidade por linha são praticamente iguais entre os tratamentos. A duplicação foi nula nos oito
@@ -228,15 +229,16 @@ primária (fica como variável exploratória), densidade de defeitos por KLOC (k
 
 ### 6.1 Trials executados
 
-Os campos com valor ausente (—) correspondem a medições perdidas, explicadas em `docs/desvios-sprint2.md`.
-O tempo `2100 s` com `censurado = sim` significa trial não concluído no time-box.
+O tempo `2100 s` com `censurado = sim` significa trial não concluído no time-box. Os valores marcados com
+(†) foram informados pelos sujeitos após a execução, e não capturados pela instrumentação; a origem de cada
+um está em `docs/desvios-sprint2.md`, seções 1.1 e 2.
 
 | Trial | Sujeito | Kata | Tratamento | Tempo | Censurado | 1º verde | Testes | Taxa | Prompts | Commit |
 |-------|---------|------|------------|-------|-----------|----------|--------|------|---------|--------|
-| `guilherme-kata01-COM_IA` | Guilherme | 01 | COM_IA | 90 s | não | — | 12/12 | 100% | 1 | `a9649f5` |
-| `guilherme-kata02-COM_IA` | Guilherme | 02 | COM_IA | 192 s | não | — | 14/14 | 100% | 2 | `1129ccb` |
-| `guilherme-kata03-SEM_IA` | Guilherme | 03 | SEM_IA | 2100 s | **sim** | — | — | — | 0 | `e85fda6` |
-| `guilherme-kata04-SEM_IA` | Guilherme | 04 | SEM_IA | 1205 s | não | — | 16/16 | 100% | 0 | `76860aa` |
+| `guilherme-kata01-COM_IA` | Guilherme | 01 | COM_IA | 90 s | não | 90 s † | 12/12 | 100% | 1 | `a9649f5` |
+| `guilherme-kata02-COM_IA` | Guilherme | 02 | COM_IA | 192 s | não | 110 s † | 14/14 | 100% | 2 | `1129ccb` |
+| `guilherme-kata03-SEM_IA` | Guilherme | 03 | SEM_IA | 2100 s | **sim** | 1623 s † | 12/15 † | 80% † | 0 | `e85fda6` |
+| `guilherme-kata04-SEM_IA` | Guilherme | 04 | SEM_IA | 1205 s | não | 879 s † | 16/16 | 100% | 0 | `76860aa` |
 | `gabriel-kata01-SEM_IA` | Gabriel | 01 | SEM_IA | 1894 s | não | 1423 s | 12/12 | 100% | 0 | `9f5f6f6` |
 | `gabriel-kata02-SEM_IA` | Gabriel | 02 | SEM_IA | 2100 s | **sim** | 1769 s | 13/14 | 92,86% | 0 | `ece7523` |
 | `gabriel-kata03-COM_IA` | Gabriel | 03 | COM_IA | 163 s | não | 150 s | 15/15 | 100% | 1 | `11c2fec` |
@@ -246,7 +248,7 @@ O tempo `2100 s` com `censurado = sim` significa trial não concluído no time-b
 
 | # | Desvio | Consequência nos dados |
 |---|--------|------------------------|
-| 1 | Os 4 trials do Guilherme foram executados sem o `Cronometro` (tempo anotado à mão; código commitado por cima do esqueleto em `katas/kataNN/src`) | `inicio_iso`/`fim_iso` e **1º verde perdidos** nos 4 trials → RQ4 fica sem par e passa a ser descritiva; tempo e contagens recuperados da anotação; código final recuperado do histórico e arquivado em `data/trials/<id>/src` |
+| 1 | Os 4 trials do Guilherme foram executados sem o `Cronometro` (tempo anotado à mão; código commitado por cima do esqueleto em `katas/kataNN/src`) | Tempo e contagens recuperados da anotação; código final recuperado do histórico e arquivado em `data/trials/<id>/src`; **1º verde obtido por auto-relato posterior** (seção 1.1 dos desvios) e `inicio_iso`/`fim_iso` **derivados da hora do commit** (seção 1.2) |
 | 2 | `guilherme-kata03-SEM_IA` ultrapassou o time-box com anotação "Tempo: 35+" | Registrado como censurado em 2100 s; `testes_passando`/`taxa_sucesso` ficam **em branco** (não se sabe o estado aos 35 min) → RQ2 fica com 3 observações sem IA |
 | 3 | Esqueletos sobrescritos pelas soluções e depois restaurados do commit `8c96e3e` | Soluções da kata01/02 ficaram visíveis no repo entre commits → ameaça de difusão de tratamento registrada, dependente de auto-relato |
 | 4 | Dois defeitos no pipeline de métricas (leitura do `method.csv` com assinaturas entre aspas; `Add-Content` duplicando a linha a cada recoleta) | Detectados por valores impossíveis; corrigidos e **todas as métricas recoletadas** |
@@ -401,7 +403,9 @@ Nenhum trial ficou fora do intervalo 1,5 × IQR. Os dois trials censurados foram
 | Variável | Direção | Pares | Úteis | Empates | W | p | p mínimo possível | Efeito | Δ mediana | Conclusivo |
 |----------|---------|-------|-------|---------|---|---|--------------------|--------|-----------|------------|
 | `tempo_segundos` | menor com IA | 4 | 4 | 0 | 0,0 | 0,0625 | 0,0625 | −1,000 (grande) | −1856,0 | não |
-| `taxa_sucesso` | maior com IA | 3 | 1 | 2 | - | - | 0,5 | +1,000 (grande) | 0,0 | não |
+| `taxa_sucesso` | maior com IA | 4 | 2 | 2 | 3,0 | 0,250 | 0,250 | +1,000 (grande) | +3,57 | não |
+| `tempo_primeiro_verde_s` | menor com IA | 4 | 4 | 0 | 0,0 | 0,0625 | 0,0625 | −1,000 (grande) | −1403,0 | não |
+| `proporcao_primeiro_verde` | menor com IA | 4 | 4 | 0 | 6,0 | 0,688 | 0,0625 | +0,200 (pequeno) | +0,18 | não |
 
 **RQ3 e RQ5 (`data/analise/testes_rq3_rq5.csv`):**
 
@@ -416,17 +420,31 @@ Nenhum trial ficou fora do intervalo 1,5 × IQR. Os dois trials censurados foram
 p mínimo com 4 pares é maior que 0,05), e não que o efeito esteja ausente. `W` é a estatística do teste;
 o tamanho de efeito é a correlação rank-biserial, de −1 a +1.
 
-### 7.6 RQ4 — tempo até o primeiro teste verde (descritiva)
+### 7.6 RQ4 — tempo até o primeiro teste verde
 
-A medida só existe nos quatro trials do Gabriel (perdida nos trials do Guilherme). Como nenhuma kata tem os
-dois tratamentos medidos, não há par e o teste de Wilcoxon não se aplica. Segue descritiva:
+A medida existe nos oito trials. Nos quatro do Guilherme ela veio de auto-relato posterior (†), não do
+comando `verde` do cronômetro; ver `docs/desvios-sprint2.md`, seção 1.1.
 
 | Trial | Tratamento | 1º verde | Tempo total | Proporção do total |
 |-------|------------|----------|-------------|--------------------|
+| `guilherme-kata01-COM_IA` | COM_IA | 90 s † | 90 s | 100% |
+| `guilherme-kata02-COM_IA` | COM_IA | 110 s † | 192 s | 57% |
 | `gabriel-kata03-COM_IA` | COM_IA | 150 s | 163 s | 92% |
 | `gabriel-kata04-COM_IA` | COM_IA | 54 s | 57 s | 95% |
 | `gabriel-kata01-SEM_IA` | SEM_IA | 1423 s | 1894 s | 75% |
 | `gabriel-kata02-SEM_IA` | SEM_IA | 1769 s | 2100 s | 84% |
+| `guilherme-kata03-SEM_IA` | SEM_IA | 1623 s † | 2100 s | 77% |
+| `guilherme-kata04-SEM_IA` | SEM_IA | 879 s † | 1205 s | 73% |
+
+A RQ4 admite duas leituras, e elas discordam.
+
+| Variável | Pares | W | p | Efeito | Leitura |
+|----------|-------|---|---|--------|---------|
+| 1º verde em segundos | 4 | 0,0 | 0,0625 | −1,000 | mais cedo com IA nas 4 katas |
+| 1º verde como fração do trial | 4 | 6,0 | 0,6875 | +0,200 | mais tarde com IA em 3 das 4 |
+
+O tempo absoluto é quase redundante com a RQ1: se o trial inteiro dura menos, tudo dentro dele acontece mais
+cedo. A fração do trial é a variável que responde à pergunta como ela foi formulada.
 ## 8. Resultados por questão de pesquisa
 
 ### 8.1 RQ1 — A IA reduz o tempo necessário para resolver a tarefa?
@@ -448,20 +466,24 @@ formal pelo limite de poder do desenho.
 
 ### 8.2 RQ2 — A IA reduz a quantidade de defeitos?
 
-**Descritiva.** Taxa de sucesso com IA: 100% nos 4 trials. Sem IA: mediana 100%, faixa 92,86–100 (n = 3; o
-4º trial teve a contagem em branco por censura - desvio 2 da seção 6.2).
+**Descritiva.** Taxa de sucesso com IA: 100% nos 4 trials. Sem IA: mediana 96,43%, faixa 80–100 (n = 4).
 
-**Teste.** Wilcoxon pareado, unilateral (`greater`), 3 pares (kata03 sem o lado sem IA), mas com **apenas 1
-par não empatado** (kata02: 100% vs 92,86%; kata01 e kata04 empataram em 100%). O teste exige ao menos 2
-diferenças diferentes de zero, portanto **não se aplica**.
+**Teste.** Wilcoxon pareado, unilateral (`greater`), 4 pares, dos quais **2 não empatados**: kata02 (100% vs
+92,86%) e kata03 (100% vs 80%). W = 3,0; p = 0,250; efeito +1,000. Os dois pares não empatados apontam na
+mesma direção, mas 0,250 é o **menor p-valor alcançável com 2 pares**, então o teste não consegue distinguir
+esse resultado do acaso.
 
-**Leitura.** Ocorreu **efeito de teto**: sete dos oito trials terminaram com 100% dos testes passando, então
-a taxa de sucesso quase não varia. O único defeito de todo o experimento (13/14 na kata02) ocorreu no
-braço sem IA, mas uma observação não sustenta comparação estatística. Efeito reportado +1,000, com n
-efetivo de 1 par — não interpretável.
+**Leitura.** Ocorreu **efeito de teto**: seis dos oito trials terminaram com 100% dos testes passando, então
+a taxa de sucesso quase não varia. Os dois únicos trials com defeito ao fim do tempo estão ambos no braço
+sem IA, e ambos são trials que estouraram o time-box — o defeito e a não conclusão são o mesmo fenômeno
+visto por dois ângulos, não evidências independentes.
 
-**Conclusão (indicativa):** não há diferença mensurável em defeitos; a RQ2 é o resultado menos informativo,
-como já era esperado para katas curtas com suítes bem especificadas.
+**Ressalva de origem.** A observação de 12/15 da kata03 veio de auto-relato posterior, não do runner
+(seção 2 de `docs/desvios-sprint2.md`). Ela é um dos dois pares que sustentam o teste, o que torna a RQ2
+dependente de evidência de qualidade inferior à da RQ1, RQ3 e RQ5.
+
+**Conclusão (indicativa):** a direção favorece a IA, mas com dois pares úteis e um deles de origem não
+instrumentada, a RQ2 continua sendo o resultado menos informativo do experimento.
 ### 8.3 RQ3 — A IA altera a complexidade ciclomática ou a duplicação?
 
 **RQ3a — complexidade média por método (descritiva).** Mediana 3,638 com IA (faixa 2,75–6,25) contra 7,333
@@ -484,17 +506,25 @@ sem diferença conclusiva e com direção mista. Duplicação nula nos dois trat
 
 ### 8.4 RQ4 — O assistente antecipa o primeiro teste verde ou só o último?
 
-**Descritiva.** A medida existe apenas nos 4 trials do Gabriel (perdida nos 4 do Guilherme — desvio 1 da
-seção 6.2). Com IA, o primeiro verde chegou a 92–95% do tempo total (54 s de 57 s; 150 s de 163 s); sem IA,
-a 75–84% (1423 s de 1894 s; 1769 s de 2100 s).
+**Descritiva.** A medida existe nos 8 trials. Em segundos, mediana de 100 s com IA contra 1523 s sem IA.
+Como fração do trial, mediana de 93,4% com IA contra 76,2% sem IA.
 
-**Teste.** Não aplicável: nenhuma kata tem os dois tratamentos medidos, logo não há pares.
+**Teste, em segundos.** Wilcoxon pareado, unilateral (`less`), 4 pares úteis: W = 0,0; p = 0,0625 (o mínimo
+alcançável); efeito −1,000. As quatro katas apontam na mesma direção.
 
-**Leitura (descritiva).** Nos 4 pontos disponíveis, o primeiro verde chega **proporcionalmente mais tarde**
-com IA (razão 0,92–0,95) do que sem IA (0,75–0,84). Isso é **contrário à hipótese de que a IA vence a página
-em branco** e sugere ganho concentrado na etapa final. Com 4 pontos, todos de um mesmo sujeito e sem
-pareamento, é **sugestão qualitativa**, não evidência: a RQ4 entra como **resultado não obtido** para
-inferência e **achado descritivo** na discussão.
+**Teste, como fração do trial.** Wilcoxon pareado, unilateral (`less`), 4 pares úteis: W = 6,0; p = 0,688;
+efeito +0,200. Em três das quatro katas o primeiro verde chegou proporcionalmente **mais tarde** com IA. A
+exceção é a kata02 do Guilherme, com 57%, o primeiro verde mais precoce dos oito trials.
+
+**Leitura.** As duas variáveis respondem a perguntas diferentes. O tempo absoluto é quase redundante com a
+RQ1: se o trial inteiro dura menos, tudo dentro dele acontece mais cedo. A fração do trial é a que responde
+à RQ4 como ela foi formulada, e nela o efeito é pequeno e a direção contraria a hipótese de que a IA vence
+a página em branco. O mecanismo plausível é que, com IA, o sujeito delega a solução completa e só executa a
+suíte perto do fim, enquanto sem IA o primeiro verde vem por exploração incremental.
+
+**Ressalva de origem.** Os 4 valores dos trials do Guilherme vieram de auto-relato posterior, não do
+cronômetro (seção 1.1 de `docs/desvios-sprint2.md`). Como eles são metade dos dados, a RQ4 se apoia em
+evidência de qualidade inferior à das demais questões e deve ser lida com essa ressalva.
 
 ### 8.5 RQ5 — A diferença de complexidade se mantém após normalizar por LOC?
 
@@ -518,19 +548,29 @@ tratamentos; a hipótese de verbosidade inflando a complexidade não se confirma
   medianas de ~16×. Três dos quatro trials com IA terminaram com tudo verde em menos de 3,5 minutos; sem IA,
   dois trials nem concluíram em 35 minutos. Mesmo sem significância formal (p = 0,0625 contra α = 0,05), a
   consistência da direção e a magnitude tornam a evidência prática clara.
-- **Defeitos.** Efeito de teto: 7/8 trials com 100%. As suítes são curtas (12–16 testes) e bem
-  especificadas; dificilmente qualquer tratamento produziria muitos defeitos. A RQ2 não é conclusiva e isso
-  é um resultado sobre o instrumento (métrica pouco variável), não sobre a ferramenta.
+- **Defeitos.** Efeito de teto: 6/8 trials com 100%. As suítes são curtas (12–16 testes) e bem
+  especificadas; dificilmente qualquer tratamento produziria muitos defeitos. Os dois trials com defeito ao
+  fim do tempo são exatamente os dois censurados, ambos no braço sem IA: o defeito e a não conclusão são o
+  mesmo fenômeno visto de dois ângulos, não evidências independentes. A RQ2 não é conclusiva, e isso é um
+  resultado sobre o instrumento (métrica pouco variável), não sobre a ferramenta.
 - **Estrutura.** A IA não tornou o código mais verboso (LOC equivalente) nem mais complexo por linha (RQ5
   ≈ zero). A complexidade média por método foi menor com IA na mediana, mas com direção mista 2 a 2 — a
   leitura é de ausência de piora estrutural, não de melhora estatisticamente demonstrada.
-- **RQ4 (achado descritivo).** A proporção 1º-verde/total foi mais alta com IA, ou seja, o primeiro verde
-  apareceu **mais tarde** dentro do trial. Isso contraria a expectativa de que a IA vence a página em
-  branco; um mecanismo possível é que, com IA, o sujeito delega a solução completa e só executa a suíte
-  tardiamente, enquanto sem IA o primeiro verde vem por exploração incremental. Testar isso exige medir o
-  1º verde em todos os trials (experimento futuro).
-- **Prompts.** Contagem muito baixa (1, 2, 1, 1). A maior parte do tempo com IA pareceu ser de leitura,
-  edição e conferência da resposta, não de conversa longa, consistente com o tempo total curto.
+- **RQ4.** As duas variáveis discordam, e a distinção importa. Em segundos, o primeiro verde chega muito
+  antes com IA nas quatro katas, mas isso é quase redundante com a RQ1: trial mais curto, tudo mais cedo.
+  Como proporção do trial, que é a pergunta formulada, o efeito é pequeno (+0,200) e em três das quatro
+  katas o primeiro verde aparece **mais tarde** com IA, contrariando a expectativa de que a IA vence a
+  página em branco. O mecanismo plausível é que, com IA, o sujeito delega a solução completa e só executa a
+  suíte perto do fim, enquanto sem IA o primeiro verde vem por exploração incremental. A ressalva é que
+  metade desses valores veio de auto-relato, não do cronômetro.
+- **Prompts.** Contagem muito baixa: 1, 2, 1 e 1, cinco prompts no total para resolver as quatro katas. A
+  maior parte do tempo com IA pareceu ser de leitura, edição e conferência da resposta, não de conversa
+  longa, consistente com o tempo total curto e com o achado da RQ4.
+- **Origem dos dados.** Cinco valores do conjunto não saíram da instrumentação: o 1º verde dos quatro
+  trials do Guilherme e a contagem de testes da kata03 vieram de auto-relato posterior, e os horários de
+  início e fim desses trials foram derivados da hora do commit. A RQ4 e um dos dois pares da RQ2 dependem
+  deles, o que torna essas duas questões menos sólidas que a RQ1, a RQ3 e a RQ5, que se apoiam apenas em
+  medida automatizada. Está detalhado nas seções 1.1, 1.2 e 2 de `docs/desvios-sprint2.md`.
 - **Censura.** Os dois trials censurados estão no braço sem IA. Mantê-los (como o protocolo exige) preserva
   a comparação: descartá-los favoreceria artificialmente o sem IA. Na RQ1 eles operam como piso, não como
   valor exato (o tempo verdadeiro era ≥ 2100 s).
@@ -550,7 +590,7 @@ tratamentos; a hipótese de verbosidade inflando a complexidade não se confirma
 | Efeito de aprendizado e fadiga | Contrabalanceamento e limite de 2 trials por sessão previstos; **parcialmente perdidos** porque a ordem ficou em blocos (desvio 5), compensados entre sujeitos no pareamento por kata |
 | Autoria da kata pelo sujeito | Cada autor resolveu uma própria com IA e outra sem |
 | Difusão de tratamento / vazamento de solução | Soluções da kata01/02 ficaram visíveis entre commits; o cumprimento depende de auto-relato → **limitação declarada** |
-| Instrumentação | Mesmo cronômetro, runner, JDK e versões de CK/PMD; mas **4 trials do Guilherme sem o cronômetro** (desvio 1) → 1º verde perdido |
+| Instrumentação | Mesmo cronômetro, runner, JDK e versões de CK/PMD; mas **4 trials do Guilherme sem o cronômetro** (desvio 1) → 5 valores vieram de auto-relato e 8 de derivação, e não da instrumentação |
 | Memorização de exercícios conhecidos | Katas autorais, não publicadas |
 
 ### 10.2 Externa
@@ -585,6 +625,7 @@ Todo o material do experimento está versionado em `Cardosoooo/lab2-experimentac
 | Métricas CK/PMD brutas | `data/metricas/<trial_id>/` (+ `kataNN-ref/` de referência) |
 | Tabelas da análise | `data/analise/` (descritivas, pares, testes, outliers, RQ4) |
 | Scripts de análise | `analise/dados.py`, `analise/estatistica.py`, `analise/analise_rq1_rq2.py`, `analise/analise_rq3_rq5.py` |
+| Dashboard | `analise/dashboard.py` (figuras), `data/dashboard/` (8 PNG), `relatorio/dashboard.html` (página) |
 | Anotações de execução | `relatorio/Relatorio.md` |
 | Desenho, protocolo e desvios | `docs/desenho-experimento.md`, `docs/protocolo-execucao.md`, `docs/desvios-sprint2.md`, `docs/ameacas-validade.md` |
 
@@ -594,6 +635,7 @@ Reproduzir a análise, a partir da raiz do repositório:
 pip install -r scripts/requirements.txt
 python analise/analise_rq1_rq2.py
 python analise/analise_rq3_rq5.py
+python analise/dashboard.py
 ```
 
 Os scripts reescrevem as tabelas de `data/analise/` e usam o campo `collected_at` gravado na coleta, nunca a
@@ -606,10 +648,10 @@ Respostas às questões de pesquisa, na ordem:
 | RQ | Resposta aos dados |
 |----|--------------------|
 | RQ1 — a IA reduz o tempo? | **Sim, indicativamente.** Mediana 126,5 s vs 1997 s; 4/4 pares na direção esperada (Δ −1148 a −1937 s); efeito −1,0; p = 0,0625, inalcançável a 0,05 pelo desenho |
-| RQ2 — a IA reduz defeitos? | **Não mensurável (efeito de teto).** 7/8 trials com 100%; teste inviável (1 par não empatado); único defeito ocorreu no `SEM_IA` |
+| RQ2 — a IA reduz defeitos? | **Direção favorável, sem conclusão.** 6/8 trials com 100%; 2 pares úteis; p = 0,250, que é o mínimo alcançável com 2 pares; os dois trials com defeito estão ambos no `SEM_IA` e ambos estouraram o time-box |
 | RQ3a — altera a complexidade média por método? | **Tendência a menor, sem conclusão.** Mediana 3,64 vs 7,33; efeito moderado (−0,4); direção mista 2 a 2; p = 0,625 |
 | RQ3b — altera a duplicação? | **Não.** Duplicação nula nos 8 trials; nada a testar |
-| RQ4 — antecipa o 1º teste verde? | **Resultado não obtido** (medida perdida em 4 trials); descritivamente, o 1º verde chegou proporcionalmente mais tarde com IA (92–95% vs 75–84% do tempo) |
+| RQ4 — antecipa o 1º teste verde? | **Duas leituras que discordam.** Em segundos, muito mais cedo com IA nas 4 katas (p = 0,0625; efeito −1,0), mas isso é quase redundante com a RQ1. Como fração do trial, que é a pergunta formulada, o efeito cai para +0,200 (p = 0,688) e a direção contraria a hipótese |
 | RQ5 — a complexidade se mantém após normalizar por LOC? | **Sim, a diferença desaparece.** CC/LOC 0,228 vs 0,247; efeito pequeno (−0,2); p = 0,875; LOC equivalentes (94 vs 91,5) |
 
 **Síntese.** No contexto deste experimento, katas autorais pequenas em Java, dois estudantes, Claude

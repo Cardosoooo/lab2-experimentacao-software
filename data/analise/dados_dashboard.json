@@ -52,9 +52,9 @@
       "ordem": 1,
       "tempo_segundos": 90,
       "censurado": false,
-      "tempo_primeiro_verde_s": null,
+      "tempo_primeiro_verde_s": 90,
       "testes_total": 12,
-      "testes_passando": 12.0,
+      "testes_passando": 12,
       "taxa_sucesso": 100.0,
       "n_prompts": 1,
       "commit_final": "a9649f5"
@@ -67,9 +67,9 @@
       "ordem": 2,
       "tempo_segundos": 192,
       "censurado": false,
-      "tempo_primeiro_verde_s": null,
+      "tempo_primeiro_verde_s": 110,
       "testes_total": 14,
-      "testes_passando": 14.0,
+      "testes_passando": 14,
       "taxa_sucesso": 100.0,
       "n_prompts": 2,
       "commit_final": "1129ccb"
@@ -82,10 +82,10 @@
       "ordem": 3,
       "tempo_segundos": 2100,
       "censurado": true,
-      "tempo_primeiro_verde_s": null,
+      "tempo_primeiro_verde_s": 1623,
       "testes_total": 15,
-      "testes_passando": null,
-      "taxa_sucesso": null,
+      "testes_passando": 12,
+      "taxa_sucesso": 80.0,
       "n_prompts": 0,
       "commit_final": "e85fda6"
     },
@@ -97,9 +97,9 @@
       "ordem": 4,
       "tempo_segundos": 1205,
       "censurado": false,
-      "tempo_primeiro_verde_s": null,
+      "tempo_primeiro_verde_s": 879,
       "testes_total": 16,
-      "testes_passando": 16.0,
+      "testes_passando": 16,
       "taxa_sucesso": 100.0,
       "n_prompts": 0,
       "commit_final": "76860aa"
@@ -112,9 +112,9 @@
       "ordem": 1,
       "tempo_segundos": 1894,
       "censurado": false,
-      "tempo_primeiro_verde_s": 1423.0,
+      "tempo_primeiro_verde_s": 1423,
       "testes_total": 12,
-      "testes_passando": 12.0,
+      "testes_passando": 12,
       "taxa_sucesso": 100.0,
       "n_prompts": 0,
       "commit_final": "9f5f6f6"
@@ -127,9 +127,9 @@
       "ordem": 2,
       "tempo_segundos": 2100,
       "censurado": true,
-      "tempo_primeiro_verde_s": 1769.0,
+      "tempo_primeiro_verde_s": 1769,
       "testes_total": 14,
-      "testes_passando": 13.0,
+      "testes_passando": 13,
       "taxa_sucesso": 92.86,
       "n_prompts": 0,
       "commit_final": "ece7523"
@@ -142,9 +142,9 @@
       "ordem": 3,
       "tempo_segundos": 163,
       "censurado": false,
-      "tempo_primeiro_verde_s": 150.0,
+      "tempo_primeiro_verde_s": 150,
       "testes_total": 15,
-      "testes_passando": 15.0,
+      "testes_passando": 15,
       "taxa_sucesso": 100.0,
       "n_prompts": 1,
       "commit_final": "11c2fec"
@@ -157,9 +157,9 @@
       "ordem": 4,
       "tempo_segundos": 57,
       "censurado": false,
-      "tempo_primeiro_verde_s": 54.0,
+      "tempo_primeiro_verde_s": 54,
       "testes_total": 16,
-      "testes_passando": 16.0,
+      "testes_passando": 16,
       "taxa_sucesso": 100.0,
       "n_prompts": 1,
       "commit_final": "0c1fbb3"
@@ -315,12 +315,12 @@
       },
       {
         "tratamento": "SEM_IA",
-        "n": 3,
-        "mediana": 100.0,
-        "q1": 96.43,
+        "n": 4,
+        "mediana": 96.43,
+        "q1": 89.645,
         "q3": 100.0,
-        "iqr": 3.57,
-        "minimo": 92.86,
+        "iqr": 10.355,
+        "minimo": 80.0,
         "maximo": 100.0
       }
     ],
@@ -462,9 +462,9 @@
       {
         "kata_id": "kata03",
         "COM_IA": 100.0,
-        "SEM_IA": null,
-        "diferenca": null,
-        "par_completo": false
+        "SEM_IA": 80.0,
+        "diferenca": 20.0,
+        "par_completo": true
       },
       {
         "kata_id": "kata04",
@@ -614,16 +614,46 @@
     {
       "variavel": "taxa_sucesso",
       "alternativa": "greater",
-      "n_pares": 3,
-      "n_pares_uteis": 1,
+      "n_pares": 4,
+      "n_pares_uteis": 2,
       "n_empates": 2,
-      "estatistica": null,
-      "p_valor": null,
-      "p_minimo_possivel": 0.5,
+      "estatistica": 3.0,
+      "p_valor": 0.25,
+      "p_minimo_possivel": 0.25,
       "tamanho_efeito": 1.0,
-      "mediana_diferenca": 0.0,
+      "mediana_diferenca": 3.57,
       "conclusivo": false,
-      "observacao": "apenas 1 par nao empatado; o teste exige ao menos 2 diferencas diferentes de zero",
+      "observacao": "com 2 pares uteis o menor p-valor possivel e 0.2500; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "tempo e defeitos"
+    },
+    {
+      "variavel": "tempo_primeiro_verde_s",
+      "alternativa": "less",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 0.0,
+      "p_valor": 0.0625,
+      "p_minimo_possivel": 0.0625,
+      "tamanho_efeito": -1.0,
+      "mediana_diferenca": -1403.0,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.0625; significancia a 0,05 e inalcancavel por construcao do desenho",
+      "grupo": "tempo e defeitos"
+    },
+    {
+      "variavel": "proporcao_primeiro_verde",
+      "alternativa": "less",
+      "n_pares": 4,
+      "n_pares_uteis": 4,
+      "n_empates": 0,
+      "estatistica": 6.0,
+      "p_valor": 0.6875,
+      "p_minimo_possivel": 0.0625,
+      "tamanho_efeito": 0.2,
+      "mediana_diferenca": 0.1826,
+      "conclusivo": false,
+      "observacao": "com 4 pares uteis o menor p-valor possivel e 0.0625; significancia a 0,05 e inalcancavel por construcao do desenho",
       "grupo": "tempo e defeitos"
     },
     {
@@ -755,32 +785,76 @@
   ],
   "rq4_primeiro_verde": [
     {
-      "trial_id": "gabriel-kata03-COM_IA",
+      "trial_id": "guilherme-kata01-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata01",
       "tratamento": "COM_IA",
-      "tempo_primeiro_verde_s": 150.0,
+      "tempo_primeiro_verde_s": 90,
+      "tempo_segundos": 90,
+      "proporcao_do_total": 1.0
+    },
+    {
+      "trial_id": "guilherme-kata02-COM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata02",
+      "tratamento": "COM_IA",
+      "tempo_primeiro_verde_s": 110,
+      "tempo_segundos": 192,
+      "proporcao_do_total": 0.573
+    },
+    {
+      "trial_id": "gabriel-kata03-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata03",
+      "tratamento": "COM_IA",
+      "tempo_primeiro_verde_s": 150,
       "tempo_segundos": 163,
       "proporcao_do_total": 0.92
     },
     {
       "trial_id": "gabriel-kata04-COM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata04",
       "tratamento": "COM_IA",
-      "tempo_primeiro_verde_s": 54.0,
+      "tempo_primeiro_verde_s": 54,
       "tempo_segundos": 57,
       "proporcao_do_total": 0.947
     },
     {
       "trial_id": "gabriel-kata01-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata01",
       "tratamento": "SEM_IA",
-      "tempo_primeiro_verde_s": 1423.0,
+      "tempo_primeiro_verde_s": 1423,
       "tempo_segundos": 1894,
       "proporcao_do_total": 0.751
     },
     {
       "trial_id": "gabriel-kata02-SEM_IA",
+      "sujeito": "gabriel",
+      "kata_id": "kata02",
       "tratamento": "SEM_IA",
-      "tempo_primeiro_verde_s": 1769.0,
+      "tempo_primeiro_verde_s": 1769,
       "tempo_segundos": 2100,
       "proporcao_do_total": 0.842
+    },
+    {
+      "trial_id": "guilherme-kata03-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata03",
+      "tratamento": "SEM_IA",
+      "tempo_primeiro_verde_s": 1623,
+      "tempo_segundos": 2100,
+      "proporcao_do_total": 0.773
+    },
+    {
+      "trial_id": "guilherme-kata04-SEM_IA",
+      "sujeito": "guilherme",
+      "kata_id": "kata04",
+      "tratamento": "SEM_IA",
+      "tempo_primeiro_verde_s": 879,
+      "tempo_segundos": 1205,
+      "proporcao_do_total": 0.729
     }
   ],
   "notas_para_visualizacao": [

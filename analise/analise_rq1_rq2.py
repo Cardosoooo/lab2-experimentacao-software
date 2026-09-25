@@ -55,11 +55,12 @@ def revisar_outliers(df: pd.DataFrame) -> pd.DataFrame:
 
 def analisar_rq4(df: pd.DataFrame) -> pd.DataFrame:
     """
-    RQ4 fica descritiva.
+    Prepara a tabela da RQ4.
 
-    O tempo ate o primeiro teste verde nao foi medido nos quatro trials do Guilherme,
-    entao nenhuma kata tem os dois lados. Sem par nao ha teste. Ver
-    docs/desvios-sprint2.md, secao 1.
+    A pergunta da RQ4 nao e se o primeiro verde chega antes em segundos, o que seria
+    consequencia direta do tempo total menor. E se o assistente antecipa o primeiro
+    verde *dentro* do trial. Por isso a coluna de proporcao, que e a variavel que
+    responde a pergunta como ela foi formulada.
     """
     medidos = df[df["tempo_primeiro_verde_s"].notna()].copy()
     medidos["proporcao_do_total"] = (
@@ -68,12 +69,14 @@ def analisar_rq4(df: pd.DataFrame) -> pd.DataFrame:
     return medidos[
         [
             "trial_id",
+            "sujeito",
+            "kata_id",
             "tratamento",
             "tempo_primeiro_verde_s",
             "tempo_segundos",
             "proporcao_do_total",
         ]
-    ].sort_values("tratamento")
+    ].sort_values(["tratamento", "kata_id"])
 
 
 def imprimir_descritiva(titulo: str, tabela: pd.DataFrame, unidade: str) -> None:
@@ -187,11 +190,55 @@ def main() -> None:
               f" primeiro verde {linha['tempo_primeiro_verde_s']:>6.0f}s"
               f" de {linha['tempo_segundos']:>6.0f}s totais"
               f"  ({linha['proporcao_do_total']:.0%} do trial)")
-    print("\n  Nenhuma kata tem os dois tratamentos medidos, entao nao existe par e o")
-    print("  teste de Wilcoxon nao se aplica. A RQ4 entra no relatorio como descritiva.")
+
+    df_rq4 = df.copy()
+    df_rq4["proporcao_do_total"] = (
+        df_rq4["tempo_primeiro_verde_s"] / df_rq4["tempo_segundos"]
+    )
+
+    pares_verde = dados.montar_pares(df_rq4, "tempo_primeiro_verde_s")
+    pares_verde.to_csv(saida / "pares_tempo_primeiro_verde.csv", index=False)
+    print("\nPares por kata, tempo absoluto até o primeiro verde")
+    for _, linha in pares_verde.iterrows():
+        if not linha["par_completo"]:
+            print(f"  {linha['kata_id']}: par incompleto")
+            continue
+        print(f"  {linha['kata_id']}: {linha['COM_IA']:>6.0f}s vs {linha['SEM_IA']:>6.0f}s"
+              f"   diferenca {linha['diferenca']:>+7.0f}s")
+
+    rq4_absoluto = estatistica.wilcoxon_pareado(
+        pares_verde.loc[pares_verde["par_completo"], "diferenca"],
+        variavel="tempo_primeiro_verde_s",
+        alternativa="less",
+    )
+    imprimir_teste("Wilcoxon pareado, H1: primeiro verde mais cedo com IA (segundos)",
+                   rq4_absoluto)
+
+    pares_prop = dados.montar_pares(df_rq4, "proporcao_do_total")
+    pares_prop.to_csv(saida / "pares_proporcao_primeiro_verde.csv", index=False)
+    print("\nPares por kata, proporção do trial até o primeiro verde")
+    for _, linha in pares_prop.iterrows():
+        if not linha["par_completo"]:
+            print(f"  {linha['kata_id']}: par incompleto")
+            continue
+        print(f"  {linha['kata_id']}: {linha['COM_IA']:>6.0%} vs {linha['SEM_IA']:>6.0%}"
+              f"   diferenca {linha['diferenca']:>+7.1%}")
+
+    rq4_proporcao = estatistica.wilcoxon_pareado(
+        pares_prop.loc[pares_prop["par_completo"], "diferenca"],
+        variavel="proporcao_primeiro_verde",
+        alternativa="less",
+    )
+    imprimir_teste("Wilcoxon pareado, H1: primeiro verde mais cedo *dentro* do trial "
+                   "com IA (proporção)", rq4_proporcao)
+    print("\n  A proporção é a variável que responde à RQ4 como ela foi formulada.")
+    print("  O tempo absoluto cai junto com o tempo total e diz pouco sozinho.")
 
     # ---------------------------------------------------------------- arquivos
-    resumo = pd.DataFrame([rq1.como_dicionario(), rq2.como_dicionario()])
+    resumo = pd.DataFrame([
+        rq1.como_dicionario(), rq2.como_dicionario(),
+        rq4_absoluto.como_dicionario(), rq4_proporcao.como_dicionario(),
+    ])
     resumo.to_csv(saida / "testes_rq1_rq2.csv", index=False)
 
     print("\n" + "=" * 74)

@@ -1,5 +1,5 @@
 kata_id,COM_IA,SEM_IA,diferenca,par_completo
 kata01,100.0,100.0,0.0,True
 kata02,100.0,92.86,7.140000000000001,True
-kata03,100.0,,,False
+kata03,100.0,80.0,20.0,True
 kata04,100.0,100.0,0.0,True

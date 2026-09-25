@@ -15,22 +15,57 @@ ser copiado para `data/trials/<trial_id>/src`.
 
 **Consequências nos dados.**
 
-| Campo | Situação |
-|-------|----------|
-| `tempo_segundos` | recuperado da anotação manual, com precisão de minuto e segundo |
-| `inicio_iso` e `fim_iso` | perdidos, não foram registrados |
-| `tempo_primeiro_verde_s` | **perdido nos quatro trials**, não foi medido |
-| `testes_total` e `testes_passando` | recuperados da anotação |
-| `n_prompts` | recuperado nos dois trials com IA |
-
-**Impacto na análise.** A RQ4, que compara o tempo até o primeiro teste verde, fica
-sem metade das observações. Com apenas os quatro trials do Gabriel, ela deixa de ter
-par para o teste de Wilcoxon e passa a ser descritiva. Isso precisa constar no
-relatório como resultado não obtido, e não como resultado nulo.
+| Campo | Origem do valor |
+|-------|-----------------|
+| `tempo_segundos` | anotação manual do sujeito, precisão de minuto e segundo |
+| `testes_total` e `testes_passando` | anotação manual do sujeito |
+| `n_prompts` | anotação manual do sujeito, nos dois trials com IA |
+| `tempo_primeiro_verde_s` | **auto-relato posterior**, ver abaixo |
+| `inicio_iso` e `fim_iso` | **derivados da hora do commit**, ver abaixo |
+| métricas de CK e PMD | medidas pelo pipeline sobre o código final recuperado |
 
 **Recuperação feita.** O código final de cada trial foi extraído do histórico do Git e
 arquivado em `data/trials/<trial_id>/src`, e o pipeline de métricas foi executado
-sobre os quatro. As métricas de RQ3 e RQ5 desses trials, portanto, estão completas.
+sobre os quatro. As métricas de RQ3 e RQ5 desses trials, portanto, são medidas
+completas e de mesma qualidade que as dos demais trials.
+
+### 1.1 Tempo até o primeiro teste verde: auto-relato posterior
+
+Os quatro valores de `tempo_primeiro_verde_s` dos trials do Guilherme foram
+**informados pelo sujeito depois da execução**, a partir do que ele acompanhou durante
+o próprio trial. Não foram capturados pelo comando `verde` do cronômetro, que é o
+instrumento previsto no protocolo.
+
+Sem eles a RQ4 não teria par nenhum e ficaria sem resposta. Com eles a questão passa a
+ter os quatro pares e um resultado, mas **apoiado em evidência de qualidade inferior à
+das demais questões**, que dependem apenas de medida automatizada. A RQ4 deve ser lida
+com essa ressalva no relatório e na apresentação.
+
+### 1.2 Horários de início e fim: derivados da hora do commit
+
+Os campos `inicio_iso` e `fim_iso` dos quatro trials não foram registrados por
+ninguém. Foram preenchidos por derivação, a partir de um registro que existe e é
+verificável: a hora em que cada trial foi commitado, gravada no histórico do Git.
+
+Regra aplicada: `fim_iso` recebe a hora do commit daquele trial, e `inicio_iso` recebe
+esse horário menos a duração registrada em `tempo_segundos`.
+
+| Trial | Commit | `inicio_iso` | `fim_iso` |
+|-------|--------|--------------|-----------|
+| `guilherme-kata01-COM_IA` | `a9649f5` | 10:13:03 | 10:14:33 |
+| `guilherme-kata02-COM_IA` | `1129ccb` | 10:20:08 | 10:23:20 |
+| `guilherme-kata03-SEM_IA` | `e85fda6` | 10:52:32 | 11:27:32 |
+| `guilherme-kata04-SEM_IA` | `76860aa` | 11:39:42 | 11:59:47 |
+
+Duas ressalvas. O `fim_iso` é a hora do commit e não a hora exata em que o sujeito
+encerrou: houve algum intervalo entre encerrar e commitar, então é um limite superior.
+E no `guilherme-kata03-SEM_IA` o `inicio_iso` está deslocado, porque a duração usada no
+cálculo é a censurada, de 2100 segundos, enquanto o trial real durou mais. Naquele
+caso o horário marca o ponto a partir do qual o time-box seria contado, não o momento
+em que ele começou.
+
+Esses dois campos não entram em nenhuma análise. Existem para auditoria e são a única
+parte do conjunto de dados obtida por derivação.
 
 ## 2. O trial `guilherme-kata03-SEM_IA` ultrapassou o time-box
 
@@ -39,13 +74,23 @@ protocolo, ao atingir 2100 segundos o trial é encerrado e vale o número de tes
 estavam passando naquele instante.
 
 **Como foi registrado.** `tempo_segundos` igual a 2100 e `censurado` igual a `true`,
-que é o tratamento correto para tempo censurado. Os campos `testes_passando` e
-`taxa_sucesso` ficaram **em branco**, porque não se sabe quantos testes passavam aos
-35 minutos. Preencher com 15 de 15 seria registrar um sucesso obtido fora do tempo
-limite, o que distorce a RQ2 a favor do tratamento sem IA.
+que é o tratamento correto para tempo censurado. O 15 de 15 da anotação **não** foi
+usado: é o estado do código depois que o sujeito terminou, já fora do tempo limite, e
+registrá-lo distorceria a RQ2 a favor do tratamento sem IA.
 
-**Impacto na análise.** A RQ2 fica com três observações completas do Guilherme em vez
-de quatro.
+O valor usado, **12 de 15**, foi informado pelo sujeito posteriormente como o estado da
+suíte quando o time-box venceu. Tem a mesma natureza de auto-relato descrita na seção
+1.1, e não veio do runner de testes.
+
+**Comparação com o outro trial censurado.** O `gabriel-kata02-SEM_IA` também
+ultrapassou o time-box, com duração real de 2346 segundos, ou 39,1 minutos. A contagem
+de 13 de 14 foi registrada pelo runner no momento em que o sujeito parou, com a kata
+ainda incompleta. É medida, mas colhida aos 39 minutos e não aos 35, então também é
+aproximação do estado no instante do time-box, ainda que por margem bem menor.
+
+**Impacto na análise.** A RQ2 passa a ter os quatro pares, dos quais dois não empatados.
+É o mínimo para o teste de Wilcoxon rodar, e o menor p-valor alcançável com dois pares
+é 0,250.
 
 ## 3. Os esqueletos foram sobrescritos e restaurados
 

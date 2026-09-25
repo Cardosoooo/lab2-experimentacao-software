@@ -1,5 +1,9 @@
-trial_id,tratamento,tempo_primeiro_verde_s,tempo_segundos,proporcao_do_total
-gabriel-kata03-COM_IA,COM_IA,150.0,163,0.92
-gabriel-kata04-COM_IA,COM_IA,54.0,57,0.947
-gabriel-kata01-SEM_IA,SEM_IA,1423.0,1894,0.751
-gabriel-kata02-SEM_IA,SEM_IA,1769.0,2100,0.842
+trial_id,sujeito,kata_id,tratamento,tempo_primeiro_verde_s,tempo_segundos,proporcao_do_total
+guilherme-kata01-COM_IA,guilherme,kata01,COM_IA,90,90,1.0
+guilherme-kata02-COM_IA,guilherme,kata02,COM_IA,110,192,0.573
+gabriel-kata03-COM_IA,gabriel,kata03,COM_IA,150,163,0.92
+gabriel-kata04-COM_IA,gabriel,kata04,COM_IA,54,57,0.947
+gabriel-kata01-SEM_IA,gabriel,kata01,SEM_IA,1423,1894,0.751
+gabriel-kata02-SEM_IA,gabriel,kata02,SEM_IA,1769,2100,0.842
+guilherme-kata03-SEM_IA,guilherme,kata03,SEM_IA,1623,2100,0.773
+guilherme-kata04-SEM_IA,guilherme,kata04,SEM_IA,879,1205,0.729
