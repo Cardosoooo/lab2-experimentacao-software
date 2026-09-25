@@ -195,11 +195,11 @@
     <img src="../data/dashboard/fig03_taxa_sucesso.png"
          alt="Barras da taxa de sucesso dos testes por kata e tratamento.">
     <figcaption>
-      <b>Efeito de teto.</b> Sete dos oito trials terminaram com todos os testes
-      passando, então quase não há variação para medir. Apenas a kata02 sem IA difere,
-      com 13 de 14 testes. Sobra um único par não empatado, e o teste de Wilcoxon exige
-      pelo menos dois. A RQ2 fica sem resposta estatística, e isso é um resultado do
-      experimento, não uma falha de análise.
+      <b>Efeito de teto.</b> Seis dos oito trials terminaram com todos os testes
+      passando. Os dois que ficaram abaixo são do braço sem IA: kata02 com 13 de 14 e
+      kata03 com 12 de 15, ambos trials que estouraram o time-box. Restam dois pares não
+      empatados, o mínimo para o teste rodar: p igual a 0,250, que é também o menor
+      valor alcançável com dois pares.
     </figcaption>
   </figure>
 
@@ -240,16 +240,25 @@
 
   <h2>RQ4 · O assistente antecipa o primeiro teste verde?</h2>
 
+  <p>
+    Segunda questão própria do grupo. Ela não pergunta se o primeiro verde chega antes
+    em segundos, o que seria consequência direta do tempo total menor, e sim se o
+    assistente antecipa o primeiro verde <em>dentro</em> do trial. São duas leituras
+    diferentes, e elas discordam.
+  </p>
+
   <figure>
     <img src="../data/dashboard/fig07_rq4_primeiro_verde.png"
-         alt="Barras mostrando, em cada trial, o tempo até o primeiro teste passar dentro do tempo total.">
+         alt="Barras mostrando, em cada um dos oito trials, o tempo até o primeiro teste passar dentro do tempo total.">
     <figcaption>
-      Segunda questão própria do grupo, e a que mais sofreu com falha de instrumentação:
-      <b>só quatro dos oito trials têm essa medida</b>. Como nenhuma kata tem os dois
-      tratamentos medidos, não existe par e o teste não se aplica. O que aparece é
-      contraintuitivo e vale discussão: com assistente, o primeiro teste verde chega com
-      92% e 95% do trial já decorrido, enquanto sem assistente chega com 75% e 84%. A
-      solução assistida chega quase pronta de uma vez, em vez de crescer aos poucos.
+      <b>Em segundos, o primeiro verde chega muito antes com IA</b>, nas quatro katas,
+      com efeito −1,000 e p igual a 0,0625. Mas esse resultado é quase redundante com a
+      RQ1: se o trial inteiro dura menos, tudo dentro dele acontece mais cedo.
+      <br><br>
+      <b>Como fração do trial, a direção se inverte e enfraquece.</b> Em três das quatro
+      katas o primeiro verde chegou proporcionalmente mais tarde com assistente, com
+      efeito de apenas +0,200 e p igual a 0,688. A kata02 do Guilherme é a exceção, com
+      57%, o primeiro verde mais precoce dos oito trials.
     </figcaption>
   </figure>
 
@@ -289,9 +298,23 @@
         <tr>
           <td>Taxa de sucesso (RQ2)</td>
           <td class="num com">100%</td>
-          <td class="num sem">100%</td>
-          <td class="num vazio">não se aplica</td>
-          <td class="num vazio">1 par útil</td>
+          <td class="num sem">96,43%</td>
+          <td class="num">0,250</td>
+          <td class="num">+1,000</td>
+        </tr>
+        <tr>
+          <td>1º verde em segundos (RQ4)</td>
+          <td class="num com">100 s</td>
+          <td class="num sem">1523 s</td>
+          <td class="num">0,0625</td>
+          <td class="num">−1,000</td>
+        </tr>
+        <tr>
+          <td>1º verde como fração do trial (RQ4)</td>
+          <td class="num com">93,4%</td>
+          <td class="num sem">76,2%</td>
+          <td class="num">0,688</td>
+          <td class="num">+0,200</td>
         </tr>
         <tr>
           <td>Complexidade por método (RQ3)</td>
@@ -344,16 +367,19 @@
   </div>
 
   <div class="aviso">
-    <h3>Duas lacunas de medição</h3>
+    <h3>Cinco valores vieram de fora do instrumento</h3>
     <p>
-      O tempo até o primeiro teste verde não foi registrado em quatro trials, o que
-      deixou a RQ4 sem par. E um trial censurado não teve a contagem de testes
-      registrada no instante dos 35 minutos, o que tirou uma observação da RQ2.
+      Quatro trials foram executados sem o cronômetro, e o tempo até o primeiro teste
+      verde não ficou gravado. Um trial censurado também não teve a contagem de testes
+      registrada no instante dos 35 minutos. Esses cinco valores foram <b>informados
+      pelos sujeitos depois da execução</b>, e não capturados pela instrumentação. Os
+      horários de início e fim desses quatro trials foram derivados da hora do commit.
     </p>
     <p>
-      As duas lacunas estão documentadas em <code>docs/desvios-sprint2.md</code>, com a
-      causa e o impacto em cada questão. Nenhum valor foi estimado para preencher o que
-      não foi medido.
+      Tudo está registrado em <code>docs/desvios-sprint2.md</code>, com a regra usada em
+      cada caso. <b>Leitura recomendada:</b> tratar a RQ4 e a observação da kata03 na
+      RQ2 como evidência de qualidade inferior à das outras questões, que dependem
+      apenas de medida automatizada.
     </p>
   </div>
 
